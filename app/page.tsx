@@ -77,6 +77,6 @@ function Content(props: ContentProps) {
   }, [props.src])
 
   return (
-    <Markdown className="p-4 bg-slate-50 rounded-md flex-1">{content}</Markdown>
+    <Markdown className="content p-4 bg-slate-50 rounded-md flex-1">{content}</Markdown>
   )
 }

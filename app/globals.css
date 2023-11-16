@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Color links for readability in content panes */
+.content a {
+  color: #d97706;
+}
