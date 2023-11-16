@@ -12,7 +12,8 @@ Developed a web application with React and an internal UI framework to diagnose 
 
 *Head Teaching Assistant (2021-2023)*  
 Gave guest lectures on Artificial Intelligence & Machine Learning to over 1200 students in the Informatics program.  
-Provided mentorship, guidance and counseling for students in the Informatics program.
+Provided mentorship, guidance and counseling for students in the Informatics program.  
+&nbsp;
 
 *Informatics Program Admissions Council (Spring 2023)*  
 Appointed to review applicants for the Informatics program for entry in Autumn 2023.  
