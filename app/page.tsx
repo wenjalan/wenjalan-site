@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 
+const ERROR_MD_SRC = './error.md'
+
 interface Section {
   id: string
   title: string
@@ -33,18 +35,21 @@ function Main() {
   useEffect(() => {
     fetch('./metadata.json')
       .then((res) => {
-        return res.ok ? res.json() : ['Something went wrong.']
+        return res.ok ? res.json() : ['Something went wrong: Error retrieving metadata']
       })
       .then((metadata) => {
         setSections(metadata.sections)
-        setSelected(metadata.sections[0])
+        setSelected(metadata.sections[0].id )
       })
   }, [])
+
+  const selectedSection = sections.find((section) => section.id === selected)
+  const contentSrc = selectedSection ? selectedSection.src : ERROR_MD_SRC
 
   return (
     <main className="m-4 flex flex-row gap-2">
       <Menu sections={sections} selected={selected} setSelected={setSelected} />
-      <Content src={`./${selected}.md`} />
+      <Content src={contentSrc} />
     </main>
   )
 }
@@ -77,7 +82,11 @@ function Content(props: ContentProps) {
   useEffect(() => {
     fetch(props.src)
       .then((res) => {
-        return res.ok ? res.text() : 'Something went wrong.'
+        if (!res.ok) {
+          console.error(res.status, res.statusText);
+          return `Something went wrong: Error retrieving content from src=${props.src}`
+        }
+        return res.text()
       })
       .then((content) => setContent(content))
   }, [props.src])
