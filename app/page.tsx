@@ -3,6 +3,12 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 
+interface Section {
+  id: string
+  title: string
+  src: string
+}
+
 export default function Home() {
   return (
     <div className='flex flex-col'>
@@ -21,7 +27,7 @@ function NavBar() {
 }
 
 function Main() {
-  const [sections, setSections] = useState([])
+  const [sections, setSections] = useState<Section[]>([])
   const [selected, setSelected] = useState('about') // default to about.md before metadata is loaded
 
   useEffect(() => {
@@ -44,7 +50,7 @@ function Main() {
 }
 
 interface MenuProps {
-  sections: string[]
+  sections: Section[]
   selected: string
   setSelected: (page: string) => void
 }
@@ -53,9 +59,9 @@ function Menu(props: MenuProps) {
   return (
     <div className="text-1xl flex-4 flex flex-col gap-2">
       {props.sections.map((section) => (
-        section === props.selected ?
-          <div key={section} className="hover:bg-slate-300 cursor-pointer font-bold p-4 rounded-md bg-slate-50" onClick={() => props.setSelected(section)}>{section.toUpperCase()}</div> :
-          <div key={section} className="hover:bg-slate-300 cursor-pointer p-4 rounded-md bg-slate-50" onClick={() => props.setSelected(section)}>{section.toUpperCase()}</div>
+        section.id === props.selected ?
+          <div key={section.id} className="hover:bg-slate-300 cursor-pointer font-bold p-4 rounded-md bg-slate-50" onClick={() => props.setSelected(section.id)}>{section.title}</div> :
+          <div key={section.id} className="hover:bg-slate-300 cursor-pointer p-4 rounded-md bg-slate-50" onClick={() => props.setSelected(section.id)}>{section.title}</div>
       ))}
     </div>
   )

@@ -6,7 +6,7 @@ Hi! Alan Wen here, I'm a newly graduated Software Engineer based in Seattle. I g
 
 ---
 
-Basically, an over-engineered personal website. I started learning computer programming as a hobby when I was 10-years-old, and building stuff from scratch has always been my passion. The goal of this website was to showcase a small snippet of my technical skills, in a practical and concise format. Under the hood, you'll find a complete *NextJS* app, written with *React*, *Tailwind*, and *TypeScript*. The actual content of these sections is stored in Markdown files which are loaded dynamically into the website on load. Fast? No. Interesting? Maybe to the right person.  
+Basically, an over-engineered personal website. I started learning computer programming as a hobby when I was 10-years-old, and building stuff from scratch has always been my passion. The goal of this website was to showcase a small snippet of my technical skills, in a practical and concise format. Under the hood, you'll find a complete *NextJS* app, written with *React*, *Tailwind*, and *TypeScript*. The actual content of these sections is stored in Markdown files which are loaded dynamically into the website on load. Fast? No. Interesting? Maybe to the right person. But all of it happens with about 100 lines of code, which is kinda neat.  
 &nbsp;
 
 **Contact**  

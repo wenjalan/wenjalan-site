@@ -1,9 +1,29 @@
 {
   "sections": [
-    "about",
-    "education",
-    "experience",
-    "projects",
-    "awards"
+    {
+      "id": "about",
+      "title": "ABOUT",
+      "src": "https://raw.githubusercontent.com/wenjalan/wenjalan-site/main/public/about.md"
+    },
+    {
+      "id": "education",
+      "title": "EDUCATION",
+      "src": "https://raw.githubusercontent.com/wenjalan/wenjalan-site/main/public/education.md"
+    },
+    {
+      "id": "experience",
+      "title": "EXPERIENCE",
+      "src": "https://raw.githubusercontent.com/wenjalan/wenjalan-site/main/public/experience.md"
+    },
+    {
+      "id": "projects",
+      "title": "PROJECTS",
+      "src": "https://raw.githubusercontent.com/wenjalan/wenjalan-site/main/public/projects.md"
+    },
+    {
+      "id": "awards",
+      "title": "AWARDS & CERTIFICATIONS",
+      "src": "https://raw.githubusercontent.com/wenjalan/wenjalan-site/main/public/awards.md"
+    }
   ]
 }
