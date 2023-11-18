@@ -1,12 +1,12 @@
 **EXPERIENCE**  
-**Amazon LLC**  
+**[Amazon LLC](https://www.amazon.com/)**  
   
 ---  
 *Software Developer Engineer Intern (Summer 2022)*  
 Developed a web application with React and an internal UI framework to diagnose and resolve translation orchestration request issues within global marketplace, improving on-call efficiency.  
 
 &nbsp;  
-**University of Washington Information School**  
+**[University of Washington Information School](https://ischool.uw.edu/)**  
 
 ---  
 
@@ -19,7 +19,7 @@ Provided mentorship, guidance and counseling for students in the Informatics pro
 Appointed to review applicants for the Informatics program for entry in Autumn 2023.  
 &nbsp;
 
-**Society of Asian Scientists & Engineers, UW Chapter**  
+**[Society of Asian Scientists & Engineers, UW Chapter](https://www.saseconnect.org/)**  
 
 ---
 
