@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 import NavBar from './components/NavBar'
