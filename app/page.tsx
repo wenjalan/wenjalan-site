@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
+import NavBar from './components/NavBar'
 
 const ERROR_MD_SRC = './error.md'
 
@@ -17,14 +18,6 @@ export default function Home() {
       <NavBar />
       <Main />
     </div>
-  )
-}
-
-function NavBar() {
-  return (
-    <nav className="bg-slate-50 p-2 flex flex-row">
-      <Link href="/" className="rounded-md hover:bg-slate-300 font-bold px-2">wenjalan</Link>
-    </nav>
   )
 }
 
