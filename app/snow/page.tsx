@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import RESORTS from "./resorts.json";
 import './snow.css'
+import Link from "next/link";
 
 export default function Snow() {
   return (
@@ -15,6 +16,7 @@ export default function Snow() {
 
 interface Resort {
   name: string,
+  statusUrl: string,
   weatherDataUrl: string
 }
 
@@ -122,7 +124,7 @@ function SnowTableRow(props: SnowTableRowProps) {
 
   return (
     <tr className="border-2">
-      <td>{props.resort.name}</td>
+      <td><Link href={props.resort.statusUrl} target="_blank">{props.resort.name}</Link></td>
       <td>{data.temperature_F}°F</td>
       <td>{data.snowfallLast24_in} in</td>
       <td>{data.liftsOpen}/{data.liftsTotal}</td>

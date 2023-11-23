@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 tr {
   display: flex;
   flex-direction: row;
@@ -14,4 +18,9 @@ th {
 
 td {
   flex: 3;
+}
+
+td a {
+  color: #d97706;
+  text-decoration: none;
 }
