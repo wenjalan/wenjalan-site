@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Stevens Pass, WA",
+    "weatherDataUrl": "https://www.stevenspass.com/api/PageApi/GetWeatherDataForHeader"
+  },
+  {
+    "name": "Whistler, BC",
+    "weatherDataUrl": "https://www.whistlerblackcomb.com/api/PageApi/GetWeatherDataForHeader"
+  },
+  {
+    "name": "Vail, CO",
+    "weatherDataUrl": "https://www.vail.com/api/PageApi/GetWeatherDataForHeader"
+  },
+  {
+    "name": "Park City, UT",
+    "weatherDataUrl": "https://www.parkcitymountain.com/api/PageApi/GetWeatherDataForHeader"
+  }
+]
