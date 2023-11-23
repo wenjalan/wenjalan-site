@@ -14,5 +14,9 @@
   {
     "name": "Park City, UT",
     "weatherDataUrl": "https://www.parkcitymountain.com/api/PageApi/GetWeatherDataForHeader"
+  },
+  {
+    "name": "Heavenly, CA",
+    "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader"
   }
 ]

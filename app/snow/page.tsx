@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import RESORTS from "./resorts.json";
+import './snow.css'
 
 export default function Snow() {
   return (
@@ -20,7 +21,7 @@ interface Resort {
 function Main() {
   const resorts = RESORTS as Resort[]
   return (
-    <main className="m-2 p-2 rounded-md flex flex-col bg-slate-50">
+    <main className="m-2 p-2 bg-slate-50 rounded-md flex flex-col gap-2 sm:max-w-2xl self-center">
       <h1 className="font-bold text-lg">Snow Report</h1>
       <p>Collects temperature, snowfall, lift status and trail status from various ski resorts.</p>
       <SnowTable resorts={resorts} />
@@ -34,17 +35,17 @@ interface SnowTableProps {
 
 function SnowTable(props: SnowTableProps) {
   return (
-    <table className="table-fixed border-2 text-center">
+    <table className="table-fixed border-2">
       <thead>
-        <tr>
-          <th>Resort</th>
+        <tr className="border-2">
+          <th className="flex-3">Resort</th>
           <th>Temperature</th>
           <th>24hr Snowfall</th>
           <th>Lifts</th>
         </tr>
       </thead>
       <tbody>
-        {props.resorts.map((resort) => <SnowTableRow key={resort.name} resort={resort} />)}
+        {props.resorts.map((resort, i) => <SnowTableRow key={resort.name} resort={resort} />)}
       </tbody>
     </table>
   )
