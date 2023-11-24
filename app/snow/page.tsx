@@ -26,7 +26,7 @@ interface Resort {
 function Main() {
   const resorts = RESORTS as Resort[]
   return (
-    <main className="m-2 p-2 bg-slate-50 rounded-md flex flex-col gap-2 sm:max-w-4xl self-center">
+    <main className="m-2 p-2 bg-slate-50 rounded-md flex flex-col gap-2 sm:max-w-screen-xl self-center">
       <h1 className="font-bold text-lg">Snow Report</h1>
       <p>Collects temperature, snowfall, lift status and trail status from various ski resorts.</p>
       <SnowTable resorts={resorts} />
