@@ -26,7 +26,7 @@ interface Resort {
 function Main() {
   const resorts = RESORTS as Resort[]
   return (
-    <main className="m-2 p-2 bg-slate-50 rounded-md flex flex-col gap-2 sm:max-w-2xl self-center">
+    <main className="m-2 p-2 bg-slate-50 rounded-md flex flex-col gap-2 sm:max-w-4xl self-center">
       <h1 className="font-bold text-lg">Snow Report</h1>
       <p>Collects temperature, snowfall, lift status and trail status from various ski resorts.</p>
       <SnowTable resorts={resorts} />
@@ -40,12 +40,12 @@ interface SnowTableProps {
 
 function SnowTable(props: SnowTableProps) {
   return (
-    <table className="table-fixed border-2 text-center">
+    <table className="table-fixed border-2 text-center w-full">
       <thead>
         <tr className="border-2">
-          <th className="flex-3">Resort</th>
-          <th>Temp</th>
+          <th>Resort</th>
           <th>Low</th>
+          <th>Current</th>
           <th>High</th>
           <th>24hr Snowfall</th>
           <th>7day Snowfall</th>
@@ -59,25 +59,6 @@ function SnowTable(props: SnowTableProps) {
       </tbody>
     </table>
   )
-}
-
-interface ResortData {
-  temperature_F: number,
-  temperatureHigh_F: number,
-  temperatureLow_F: number,
-
-  temperature_C: number,
-  temperatureHigh_C: number,
-  temperatureLow_C: number,
-
-  snowfallLast24_in: number,
-  snowfallBaseDepth_in: number,
-
-  snowfallLast24_cm: number,
-  snowfallBaseDepth_cm: number,
-
-  liftsOpen: number,
-  liftsTotal: number
 }
 
 interface SnowTableRowProps {
@@ -122,9 +103,9 @@ function SnowTableRow(props: SnowTableRowProps) {
       {
         weather ? (
           <>
-            <td>{weather.tempCurrent}°F</td>
-            <td>{weather.tempLow}°F</td>
-            <td>{weather.tempHigh}°F</td>
+            <td><T t={weather.tempLow}/></td>
+            <td><T t={weather.tempCurrent}/></td>
+            <td><T t={weather.tempHigh}/></td>
             <td>{weather.snowLastDay} in</td>
             <td>{weather.snowLastWeek}</td>
           </>
@@ -155,4 +136,21 @@ function SnowTableRow(props: SnowTableRowProps) {
       } */}
     </tr >
   )
+}
+
+function T(props: { t: number }) {
+  const t = props.t
+  if (t > 32 ) {
+    return <span className="text-green-600">{t}°F</span>
+  }
+  if (t > 21) {
+    return <span className="text-cyan-600">{t}°F</span>
+  }
+  if (t > 10) {
+    return <span className="text-blue-600">{t}°F</span>
+  }
+  if (t > 0) {
+    return <span className="text-purple-600">{t}°F</span>
+  }
+  return <span>{t}°F</span>
 }
