@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
+    "css-select": "^5.1.0",
+    "htmlparser2": "^9.0.0",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",

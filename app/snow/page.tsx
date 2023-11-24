@@ -49,9 +49,9 @@ function SnowTable(props: SnowTableProps) {
           <th>High</th>
           <th>24hr Snowfall</th>
           <th>7day Snowfall</th>
-          {/* <th>Lifts</th>
+          <th>Lifts</th>
           <th>Trails</th>
-          <th>Terrain</th> */}
+          <th>Terrain</th>
         </tr>
       </thead>
       <tbody>
@@ -119,7 +119,7 @@ function SnowTableRow(props: SnowTableRowProps) {
           </>
         )
       }
-      {/* {
+      {
         terrain ? (
           <>
             <td>{terrain.liftsOpen}/{terrain.liftsTotal}</td>
@@ -133,7 +133,7 @@ function SnowTableRow(props: SnowTableRowProps) {
             <td>Loading...</td>
           </>
         )
-      } */}
+      }
     </tr >
   )
 }
