@@ -103,9 +103,9 @@ function SnowTableRow(props: SnowTableRowProps) {
       {
         weather ? (
           <>
-            <td><T t={weather.tempLow}/></td>
-            <td><T t={weather.tempCurrent}/></td>
-            <td><T t={weather.tempHigh}/></td>
+            <td><Temperature t={weather.tempLow}/></td>
+            <td><Temperature t={weather.tempCurrent}/></td>
+            <td><Temperature t={weather.tempHigh}/></td>
             <td>{weather.snowLastDay} in</td>
             {/* <td>{weather.snowLastWeek}</td> */}
           </>
@@ -124,7 +124,7 @@ function SnowTableRow(props: SnowTableRowProps) {
           <>
             <td>{terrain.liftsOpen}/{terrain.liftsTotal}</td>
             <td>{terrain.trailsOpen}/{terrain.trailsTotal}</td>
-            <td>{terrain.terrainOpenPercent}%</td>
+            <td><TerrainPercent percent={terrain.terrainOpenPercent}/></td>
           </>
         ) : (
           <>
@@ -138,7 +138,7 @@ function SnowTableRow(props: SnowTableRowProps) {
   )
 }
 
-function T(props: { t: number }) {
+function Temperature(props: { t: number }) {
   const t = props.t
   if (t > 32 ) {
     return <span className="text-green-600">{t}°F</span>
@@ -153,4 +153,18 @@ function T(props: { t: number }) {
     return <span className="text-purple-600">{t}°F</span>
   }
   return <span>{t}°F</span>
+}
+
+function TerrainPercent(props: { percent: number }) {
+  const p = props.percent
+  if (p > 90) {
+    return <span className="text-green-600">{p}%</span>
+  }
+  if (p > 70) {
+    return <span className="text-yellow-600">{p}%</span>
+  }
+  if (p > 50) {
+    return <span className="text-orange-600">{p}%</span>
+  }
+  return <span className="text-red-600">{p}%</span>
 }
