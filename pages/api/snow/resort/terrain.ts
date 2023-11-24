@@ -9,7 +9,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const response = await fetch(url as string)
   const html = await response.text()
   const terrainData = parseTerrainDataFromHTML(html)
-  console.log(terrainData)
   res.status(200).json(terrainData)
 }
 
