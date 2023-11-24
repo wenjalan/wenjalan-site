@@ -1,9 +1,12 @@
 'use client'
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import RESORTS from "./resorts.json";
-import './snow.css'
 import Link from "next/link";
+import RESORTS from "./resorts.json"
+import './snow.css'
+import ResortWeatherData from "./ResortWeatherData";
+import ResortTerrainLiftData from "./ResortTerrainLiftData";
+
 
 export default function Snow() {
   return (
@@ -37,13 +40,18 @@ interface SnowTableProps {
 
 function SnowTable(props: SnowTableProps) {
   return (
-    <table className="table-fixed border-2">
+    <table className="table-fixed border-2 text-center">
       <thead>
         <tr className="border-2">
           <th className="flex-3">Resort</th>
-          <th>Temperature</th>
+          <th>Temp</th>
+          <th>Low</th>
+          <th>High</th>
           <th>24hr Snowfall</th>
-          <th>Lifts</th>
+          <th>7day Snowfall</th>
+          {/* <th>Lifts</th>
+          <th>Trails</th>
+          <th>Terrain</th> */}
         </tr>
       </thead>
       <tbody>
@@ -77,10 +85,11 @@ interface SnowTableRowProps {
 }
 
 function SnowTableRow(props: SnowTableRowProps) {
-  const [data, setData] = useState<ResortData | undefined>(undefined)
+  const [weather, setWeather] = useState<ResortWeatherData | undefined>(undefined)
+  const [terrain, setTerrain] = useState<ResortTerrainLiftData | undefined>(undefined)
 
   useEffect(() => {
-    fetch(`/api/snow/resort?url=${props.resort.weatherDataUrl}`, {
+    fetch(`/api/snow/resort/weather?url=${props.resort.weatherDataUrl}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -89,45 +98,61 @@ function SnowTableRow(props: SnowTableRowProps) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setData({
-          temperature_F: data.CurrentTempStandard,
-          temperatureHigh_F: data.HighTempStandard,
-          temperatureLow_F: data.LowTempStandard,
-
-          temperature_C: data.CurrentTempMetric,
-          temperatureHigh_C: data.HighTempMetric,
-          temperatureLow_C: data.LowTempMetric,
-
-          snowfallLast24_in: data.SnowReportSections[0].Depth.Inches as number,
-          snowfallBaseDepth_in: data.SnowReportSections[1].Depth.Inches as number,
-
-          snowfallLast24_cm: data.SnowReportSections[0].Depth.Centimeters as number,
-          snowfallBaseDepth_cm: data.SnowReportSections[1].Depth.Centimeters as number,
-
-          liftsOpen: data.OpenLifts,
-          liftsTotal: data.TotalLifts,
-        })
+        setWeather(data)
       })
   }, [props.resort.weatherDataUrl])
 
-  if (data === undefined) {
-    return (
-      <tr>
-        <td>{props.resort.name}</td>
-        <td>Loading...</td>
-        <td>Loading...</td>
-        <td>Loading...</td>
-        <td>Loading...</td>
-      </tr>
-    )
-  }
+  useEffect(() => {
+    fetch(`/api/snow/resort/terrain?url=${props.resort.statusUrl}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setTerrain(data)
+      })
+  }, [props.resort.statusUrl])
 
   return (
     <tr className="border-2">
       <td><Link href={props.resort.statusUrl} target="_blank">{props.resort.name}</Link></td>
-      <td>{data.temperature_F}°F</td>
-      <td>{data.snowfallLast24_in} in</td>
-      <td>{data.liftsOpen}/{data.liftsTotal}</td>
-    </tr>
+      {
+        weather ? (
+          <>
+            <td>{weather.tempCurrent}°F</td>
+            <td>{weather.tempLow}°F</td>
+            <td>{weather.tempHigh}°F</td>
+            <td>{weather.snowLastDay} in</td>
+            <td>{weather.snowLastWeek}</td>
+          </>
+        ) : (
+          <>
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+          </>
+        )
+      }
+      {/* {
+        terrain ? (
+          <>
+            <td>{terrain.liftsOpen}/{terrain.liftsTotal}</td>
+            <td>{terrain.trailsOpen}/{terrain.trailsTotal}</td>
+            <td>{terrain.terrainOpenPercent}%</td>
+          </>
+        ) : (
+          <>
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+          </>
+        )
+      } */}
+    </tr >
   )
 }

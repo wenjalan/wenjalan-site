@@ -6,22 +6,22 @@
   },
   {
     "name": "Whistler, BC",
-    "statusUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
+    "statusUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherDataUrl": "https://www.whistlerblackcomb.com/api/PageApi/GetWeatherDataForHeader"
   },
   {
     "name": "Vail, CO",
-    "statusUrl": "https://www.vail.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
+    "statusUrl": "https://www.vail.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherDataUrl": "https://www.vail.com/api/PageApi/GetWeatherDataForHeader"
   },
   {
     "name": "Park City, UT",
-    "statusUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
+    "statusUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherDataUrl": "https://www.parkcitymountain.com/api/PageApi/GetWeatherDataForHeader"
   },
   {
     "name": "Heavenly, CA",
-    "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
+    "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader"
   }
 ]
