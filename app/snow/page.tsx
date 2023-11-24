@@ -48,7 +48,7 @@ function SnowTable(props: SnowTableProps) {
           <th>Current</th>
           <th>High</th>
           <th>24hr Snowfall</th>
-          <th>7day Snowfall</th>
+          {/* <th>7day Snowfall</th> */}
           <th>Lifts</th>
           <th>Trails</th>
           <th>Terrain</th>
@@ -107,7 +107,7 @@ function SnowTableRow(props: SnowTableRowProps) {
             <td><T t={weather.tempCurrent}/></td>
             <td><T t={weather.tempHigh}/></td>
             <td>{weather.snowLastDay} in</td>
-            <td>{weather.snowLastWeek}</td>
+            {/* <td>{weather.snowLastWeek}</td> */}
           </>
         ) : (
           <>
@@ -115,7 +115,7 @@ function SnowTableRow(props: SnowTableRowProps) {
             <td>Loading...</td>
             <td>Loading...</td>
             <td>Loading...</td>
-            <td>Loading...</td>
+            {/* <td>Loading...</td> */}
           </>
         )
       }
