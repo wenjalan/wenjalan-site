@@ -7,6 +7,12 @@ import * as cssSelect from 'css-select'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const url = req.query.url
   const response = await fetch(url as string)
+
+  if (!response.ok) {
+    res.status(500).json({ error: `Error fetching Vail data from ${url}: ${response.status} ${response.statusText}`})
+    return
+  }
+
   const html = await response.text()
   const terrainData = parseTerrainDataFromHTML(html)
   res.status(200).json(terrainData)

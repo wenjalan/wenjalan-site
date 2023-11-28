@@ -5,16 +5,18 @@ import * as cssSelect from 'css-select'
 // CORS proxy for API calls to Vail Resorts websites
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const url = req.query.url as string
-  const dom = await getDom(url)
+  const response = await fetch(url)
+
+  if (!response.ok) {
+    res.status(500).json({ error: `Error fetching Snow Forecast data from ${url}: ${response.status} ${response.statusText}`})
+    return
+  }
+
+  const html = await response.text()
+  return htmlparser.parseDocument(html)
   // @ts-ignore: trust me bro
   const forecast = getForecast(dom)
   res.status(200).json({"forecast": forecast})
-}
-
-async function getDom(url: string) {
-  const response = await fetch(url)
-  const html = await response.text()
-  return htmlparser.parseDocument(html)
 }
 
 function getForecast(dom: Document) {

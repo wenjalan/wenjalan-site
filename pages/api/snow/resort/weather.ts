@@ -5,10 +5,13 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const url = req.query.url
   const response = await fetch(url as string)
+
+  if (!response.ok) {
+    res.status(500).json({ error: `Error fetching Vail data from ${url}: ${response.status} ${response.statusText}`})
+    return
+  }
+
   const data = await response.json()
-
-  console.log(data.SnowReportSections[1].Description)
-
   const weatherData: ResortWeatherData = {
     name: data.HeaderSettings.DefaultWeatherLocation.Name,
 
