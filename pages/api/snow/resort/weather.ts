@@ -21,8 +21,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     liftsOpen: data.OpenLifts,
     liftsTotal: data.TotalLifts,
+
+    weather: parseWeatherShortDescription(data.WeatherShortDescription),
   }
   res.status(200).json(weatherData)
+}
+
+function parseWeatherShortDescription(weatherShortDescription: string): ResortWeatherData["weather"] {
+  switch (weatherShortDescription) {
+    case "Sunny":
+      return "SUNNY"
+    case "Cloudy":
+      return "CLOUDY"
+    case "Snow":
+      return "SNOW"
+    case "Rain":
+      return "RAIN"
+    default:
+      return weatherShortDescription
+  }
 }
 
 const sample = {
