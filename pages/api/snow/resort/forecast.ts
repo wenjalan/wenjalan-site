@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const html = await response.text()
-  return htmlparser.parseDocument(html)
+  const dom = htmlparser.parseDocument(html)
   // @ts-ignore: trust me bro
   const forecast = getForecast(dom)
   res.status(200).json({"forecast": forecast})
