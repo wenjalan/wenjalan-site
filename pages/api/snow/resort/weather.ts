@@ -31,6 +31,8 @@ function parseWeatherShortDescription(weatherShortDescription: string): ResortWe
   switch (weatherShortDescription) {
     case "Sunny":
       return "SUNNY"
+    case "Clear":
+      return "SUNNY"
     case "Cloudy":
       return "CLOUDY"
     case "Snow":

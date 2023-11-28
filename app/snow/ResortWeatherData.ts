@@ -7,4 +7,5 @@ export default interface ResortWeatherData {
   "snowLastWeek": number | string,
   "liftsOpen": number,
   "liftsTotal": number,
+  "weather": "SUNNY" | "CLOUDY" | "SNOW" | "RAIN" | string,
 }

@@ -2,26 +2,31 @@
   {
     "name": "Stevens Pass, WA",
     "statusUrl": "https://www.stevenspass.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
-    "weatherDataUrl": "https://www.stevenspass.com/api/PageApi/GetWeatherDataForHeader"
+    "weatherDataUrl": "https://www.stevenspass.com/api/PageApi/GetWeatherDataForHeader",
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Stevens-Pass/6day/mid"
   },
   {
     "name": "Whistler, BC",
     "statusUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherDataUrl": "https://www.whistlerblackcomb.com/api/PageApi/GetWeatherDataForHeader"
+    "weatherDataUrl": "https://www.whistlerblackcomb.com/api/PageApi/GetWeatherDataForHeader",
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Whistler-Blackcomb/6day/mid"
   },
   {
     "name": "Vail, CO",
     "statusUrl": "https://www.vail.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherDataUrl": "https://www.vail.com/api/PageApi/GetWeatherDataForHeader"
+    "weatherDataUrl": "https://www.vail.com/api/PageApi/GetWeatherDataForHeader",
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/6day/mid"
   },
   {
     "name": "Park City, UT",
     "statusUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherDataUrl": "https://www.parkcitymountain.com/api/PageApi/GetWeatherDataForHeader"
+    "weatherDataUrl": "https://www.parkcitymountain.com/api/PageApi/GetWeatherDataForHeader",
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Park-City/6day/mid"
   },
   {
     "name": "Heavenly, CA",
     "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader"
+    "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader",
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Heavenly-Ski/6day/mid"
   }
 ]

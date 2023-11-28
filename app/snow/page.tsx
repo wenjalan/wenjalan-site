@@ -6,6 +6,7 @@ import RESORTS from "./resorts.json"
 import './snow.css'
 import ResortWeatherData from "./ResortWeatherData";
 import ResortTerrainLiftData from "./ResortTerrainLiftData";
+import { ResortForecastData } from "./ResortForecastData";
 
 
 export default function Snow() {
@@ -17,154 +18,173 @@ export default function Snow() {
   )
 }
 
-interface Resort {
+interface ResortMetadata {
   name: string,
   statusUrl: string,
-  weatherDataUrl: string
+  weatherDataUrl: string,
+  snowForecastUrl: string,
+}
+
+interface ResortData {
+  name: string,
+  weather: ResortWeatherData,
+  terrain: ResortTerrainLiftData,
+  snow: ResortForecastData,
 }
 
 function Main() {
-  const resorts = RESORTS as Resort[]
+  const resortsMetadata = RESORTS as ResortMetadata[]
+  const [resorts, setResorts] = useState<ResortData[]>([])
+
+  useEffect(() => {
+    const resortsData: ResortData[] = []
+    resortsMetadata.forEach((resortMetadata, i) => {
+      const weatherPromise = getWeatherData(resortMetadata.weatherDataUrl)
+      const terrainPromise = getTerrainData(resortMetadata.statusUrl)
+      const snowPromise = getSnowData(resortMetadata.snowForecastUrl)
+      Promise.all([weatherPromise, terrainPromise, snowPromise])
+        .then(([weather, terrain, snow]) => {
+          resortsData.push({
+            name: resortMetadata.name,
+            weather: weather,
+            terrain: terrain,
+            snow: snow,
+          })
+          if (resortsData.length === resortsMetadata.length) {
+            setResorts(resortsData)
+          }
+        })
+    })
+  }, [resortsMetadata])
+
   return (
-    <main className="m-2 p-2 bg-slate-50 rounded-md flex flex-col gap-2 sm:max-w-screen-xl self-center">
-      <h1 className="font-bold text-lg">Snow Report</h1>
-      <p>Collects temperature, snowfall, lift status and trail status from various ski resorts.</p>
-      <SnowTable resorts={resorts} />
+    <main className="m-2 p-2 bg-slate-800 flex flex-col gap-2 sm:max-w-xl text-white drop-shadow-lg">
+      <h1 className="font-bold text-xl">Snow Report</h1>
+      <p className="text-lg">Collects temperature, snowfall, lift status and trail status from various ski resorts.</p>
+      <i>First 3 numbers are the low, current, and high temperatures. The next 3 are snowfall in the next 24, next 3 days, and next week.</i>
+      {
+        resorts.length === 0 ?
+          "Loading..." :
+          resorts.map(resort => <Resort key={resort.name} resort={resort} />)
+      }
     </main>
   )
 }
 
-interface SnowTableProps {
-  resorts: Resort[]
-}
+function Resort(props: { resort: ResortData }) {
+  const resort = props.resort
 
-function SnowTable(props: SnowTableProps) {
+  // sum first 3 elements of snow to get next 24 hours
+  const snowNext24h_cm = resort.snow.forecast.slice(0, 3).reduce((a, b) => a + b, 0)
+  const snowNext24h_in = Math.round(snowNext24h_cm / 2.54)
+
+  // sum first 9 elements of snow to get next 3 days
+  const snowNext3d_cm = resort.snow.forecast.slice(0, 9).reduce((a, b) => a + b, 0)
+  const snowNext3d_in = Math.round(snowNext3d_cm / 2.54)
+
+  // sum all elements of snow to get next 7 days
+  const snowNext7d_cm = resort.snow.forecast.reduce((a, b) => a + b, 0)
+  const snowNext7d_in = Math.round(snowNext7d_cm / 2.54)
+
   return (
-    <table className="table-fixed border-2 text-center w-full">
-      <thead>
-        <tr className="border-2">
-          <th>Resort</th>
-          <th>Low</th>
-          <th>Current</th>
-          <th>High</th>
-          <th>24hr Snowfall</th>
-          {/* <th>7day Snowfall</th> */}
-          <th>Lifts</th>
-          <th>Trails</th>
-          <th>Terrain</th>
-        </tr>
-      </thead>
-      <tbody>
-        {props.resorts.map((resort, i) => <SnowTableRow key={resort.name} resort={resort} />)}
-      </tbody>
-    </table>
+    <div className="p-2 bg-slate-700 flex flex-col gap-2 drop-shadow-lg">
+      <span className="flex flex-row">
+        <h1 className="flex-1 font-bold text-xl">{resort.name}</h1>
+        <span className="flex-1 text-end font-bold text-xl">❄️ {snowNext7d_in}&quot; {weatherToEmoji(resort.weather.weather)} {resort.weather.tempCurrent}°F</span>
+      </span>
+      <span className="flex flex-row text-black gap-2">
+        <TempIndicator temp={resort.weather.tempLow} />
+        <TempIndicator temp={resort.weather.tempCurrent} />
+        <TempIndicator temp={resort.weather.tempHigh} />
+        <SnowIndicator inches={snowNext24h_in} />
+        <SnowIndicator inches={snowNext3d_in} />
+        <SnowIndicator inches={snowNext7d_in} />
+      </span>
+    </div>
   )
 }
 
-interface SnowTableRowProps {
-  resort: Resort
-}
-
-function SnowTableRow(props: SnowTableRowProps) {
-  const [weather, setWeather] = useState<ResortWeatherData | undefined>(undefined)
-  const [terrain, setTerrain] = useState<ResortTerrainLiftData | undefined>(undefined)
-
-  useEffect(() => {
-    fetch(`/api/snow/resort/weather?url=${props.resort.weatherDataUrl}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setWeather(data)
-      })
-  }, [props.resort.weatherDataUrl])
-
-  useEffect(() => {
-    fetch(`/api/snow/resort/terrain?url=${props.resort.statusUrl}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setTerrain(data)
-      })
-  }, [props.resort.statusUrl])
-
-  return (
-    <tr className="border-2">
-      <td><Link href={props.resort.statusUrl} target="_blank">{props.resort.name}</Link></td>
-      {
-        weather ? (
-          <>
-            <td><Temperature t={weather.tempLow}/></td>
-            <td><Temperature t={weather.tempCurrent}/></td>
-            <td><Temperature t={weather.tempHigh}/></td>
-            <td>{weather.snowLastDay} in</td>
-            {/* <td>{weather.snowLastWeek}</td> */}
-          </>
-        ) : (
-          <>
-            <td>Loading...</td>
-            <td>Loading...</td>
-            <td>Loading...</td>
-            <td>Loading...</td>
-            {/* <td>Loading...</td> */}
-          </>
-        )
-      }
-      {
-        terrain ? (
-          <>
-            <td>{terrain.liftsOpen}/{terrain.liftsTotal}</td>
-            <td>{terrain.trailsOpen}/{terrain.trailsTotal}</td>
-            <td><TerrainPercent percent={terrain.terrainOpenPercent}/></td>
-          </>
-        ) : (
-          <>
-            <td>Loading...</td>
-            <td>Loading...</td>
-            <td>Loading...</td>
-          </>
-        )
-      }
-    </tr >
-  )
-}
-
-function Temperature(props: { t: number }) {
-  const t = props.t
-  if (t > 32 ) {
-    return <span className="text-green-600">{t}°F</span>
+function TempIndicator(props: { temp: number }) {
+  const t = props.temp
+  const display = t + "°"
+  if (t > 32) {
+    return <span className="bg-emerald-500 w-10 h-10 text-center font-bold text-lg leading-10 rounded-md">{display}</span>
   }
-  if (t > 21) {
-    return <span className="text-cyan-600">{t}°F</span>
+  if (t > 20) {
+    return <span className="bg-cyan-500 w-10 h-10 text-center font-bold text-lg leading-10 rounded-md">{display}</span>
   }
   if (t > 10) {
-    return <span className="text-blue-600">{t}°F</span>
+    return <span className="bg-blue-500 w-10 h-10 text-center font-bold text-lg leading-10 rounded-md">{display}</span>
   }
   if (t > 0) {
-    return <span className="text-purple-600">{t}°F</span>
+    return <span className="bg-indigo-500 w-10 h-10 text-center font-bold text-lg leading-10 rounded-md">{display}</span>
   }
-  return <span>{t}°F</span>
+  else {
+    return <span className="bg-violet-500 w-10 h-10 text-center font-bold text-lg leading-10 rounded-md">{display}</span>
+  }
 }
 
-function TerrainPercent(props: { percent: number }) {
-  const p = props.percent
-  if (p > 90) {
-    return <span className="text-green-600">{p}%</span>
-  }
-  if (p > 70) {
-    return <span className="text-yellow-600">{p}%</span>
-  }
-  if (p > 50) {
-    return <span className="text-orange-600">{p}%</span>
-  }
-  return <span className="text-red-600">{p}%</span>
+function SnowIndicator(props: { inches: number }) {
+  const i = props.inches
+  
+
+  // color is red, saturation depends on inches where 0 = black and 18 = fully red
+  const red = ((i / 18) * 100)
+  const green = red / 8
+  const color = `rgb(${red}%, ${green}%, 0%)`
+
+  return <span className="w-10 h-10 text-center font-bold text-lg leading-10 rounded-md text-white" style={{
+    backgroundColor: color,
+  }}>{i}&quot;</span>
 }
+
+function weatherToEmoji(weather: ResortWeatherData["weather"]): string {
+  switch (weather) {
+    case "SUNNY":
+      return "☀️"
+    case "CLOUDY":
+      return "☁️"
+    case "SNOW":
+      return "❄️"
+    case "RAIN":
+      return "🌧️"
+    case "WINDY":
+      return "💨"
+    default:
+      return weather
+  }
+}
+
+async function getWeatherData(url: string): Promise<ResortWeatherData> {
+  const res = await fetch(`/api/snow/resort/weather?url=${url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+  })
+  return await res.json()
+}
+
+async function getTerrainData(url: string): Promise<ResortTerrainLiftData> {
+  const res = await fetch(`/api/snow/resort/terrain?url=${url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+  })
+  return await res.json()
+}
+
+async function getSnowData(url: string): Promise<ResortForecastData> {
+  const res = await fetch(`/api/snow/resort/forecast?url=${url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+  })
+  return await res.json()
+}
+
