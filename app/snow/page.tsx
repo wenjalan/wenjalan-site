@@ -33,29 +33,7 @@ interface ResortData {
 }
 
 function Main() {
-  const resortsMetadata = RESORTS as ResortMetadata[]
-  const [resorts, setResorts] = useState<ResortData[]>([])
-
-  useEffect(() => {
-    const resortsData: ResortData[] = []
-    resortsMetadata.forEach((resortMetadata, i) => {
-      const weatherPromise = getWeatherData(resortMetadata.weatherDataUrl)
-      const terrainPromise = getTerrainData(resortMetadata.statusUrl)
-      const snowPromise = getSnowData(resortMetadata.snowForecastUrl)
-      Promise.all([weatherPromise, terrainPromise, snowPromise])
-        .then(([weather, terrain, snow]) => {
-          resortsData.push({
-            name: resortMetadata.name,
-            weather: weather,
-            terrain: terrain,
-            snow: snow,
-          })
-          if (resortsData.length === resortsMetadata.length) {
-            setResorts(resortsData)
-          }
-        })
-    })
-  }, [resortsMetadata])
+  const resorts = RESORTS as ResortMetadata[]
 
   return (
     <main className="m-2 p-2 bg-slate-800 flex flex-col gap-2 sm:max-w-xl text-white drop-shadow-lg">
@@ -65,14 +43,40 @@ function Main() {
       {
         resorts.length === 0 ?
           "Loading..." :
-          resorts.map(resort => <Resort key={resort.name} resort={resort} />)
+          resorts.map(resort => <Resort key={resort.name} resortMetadata={resort} />)
       }
     </main>
   )
 }
 
-function Resort(props: { resort: ResortData }) {
-  const resort = props.resort
+function Resort(props: { resortMetadata: ResortMetadata }) {
+  const [resort, setResort] = useState<ResortData | null>(null)
+
+  useEffect(() => {
+    if (!resort) {
+      console.log('Fetching data for ' + props.resortMetadata.name + '...')
+      const weatherPromise = getWeatherData(props.resortMetadata.weatherDataUrl)
+      const terrainPromise = getTerrainData(props.resortMetadata.statusUrl)
+      const snowPromise = getSnowData(props.resortMetadata.snowForecastUrl)
+      Promise.all([weatherPromise, terrainPromise, snowPromise]).then(values => {
+        const weather = values[0]
+        const terrain = values[1]
+        const snow = values[2]
+        setResort({ name: props.resortMetadata.name, weather, terrain, snow })
+      })
+    }
+  }, [resort, props.resortMetadata])
+
+  if (!resort) {
+    return (
+      <div className="p-2 bg-slate-700 flex flex-col gap-2 drop-shadow-lg">
+        <span className="flex flex-row">
+          <h1 className="flex-1 font-bold text-xl">{props.resortMetadata.name}</h1>
+          <span className="flex-1 text-end text-xl">Loading...</span>
+        </span>
+      </div>
+    )
+  }
 
   // sum first 3 elements of snow to get next 24 hours
   const snowNext24h_cm = resort.snow.forecast.slice(0, 3).reduce((a, b) => a + b, 0)
@@ -126,7 +130,7 @@ function TempIndicator(props: { temp: number }) {
 
 function SnowIndicator(props: { inches: number }) {
   const i = props.inches
-  
+
 
   // color is red, saturation depends on inches where 0 = black and 18 = fully red
   const red = ((i / 18) * 100)

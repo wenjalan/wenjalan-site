@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Vail, CO",
+    "statusUrl": "https://www.vail.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
+    "weatherDataUrl": "https://www.vail.com/api/PageApi/GetWeatherDataForHeader",
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/6day/mid"
+  }
+]
