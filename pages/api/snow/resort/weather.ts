@@ -28,20 +28,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 function parseWeatherShortDescription(weatherShortDescription: string): ResortWeatherData["weather"] {
-  switch (weatherShortDescription) {
-    case "Sunny":
-      return "SUNNY"
-    case "Clear":
-      return "SUNNY"
-    case "Cloudy":
-      return "CLOUDY"
-    case "Snow":
-      return "SNOW"
-    case "Rain":
-      return "RAIN"
-    default:
-      return weatherShortDescription
-  }
+  const desc = weatherShortDescription.toLowerCase()
+  if (desc.includes("sun") || desc.includes("clear")) return "SUNNY"
+  if (desc.includes("snow")) return "SNOW"
+  if (desc.includes("rain")) return "RAIN"
+  if (desc.includes("cloud")) return "CLOUDY"
+
+  // if the above doesn't match, return the original string (and later, add it to the above)
+  return weatherShortDescription  
 }
 
 const sample = {
