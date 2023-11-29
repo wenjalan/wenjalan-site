@@ -42,7 +42,7 @@ function Main() {
       <h1 className="font-bold text-xl">Snow Report</h1>
       <p className="text-lg">Collects temperature, snowfall, lift status and trail status from various ski resorts.</p>
       <i>First 3 numbers are the low, current, and high temperatures. The next 3 are snowfall in the next 24, next 3 days, and next week.</i>
-      <div className="flex flex-row flex-wrap gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         {
           resorts.length === 0 ?
             "Loading..." :
