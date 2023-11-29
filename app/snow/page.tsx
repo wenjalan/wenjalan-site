@@ -4,12 +4,13 @@ import NavBar from "../components/NavBar";
 import RESORTS from "./resorts.json"
 import './snow.css'
 import { 
-  ResortForecastData, 
-  ResortTerrainLiftData, 
-  ResortWeatherData, 
-  getSnowData, 
-  getTerrainData, 
-  getWeatherData 
+  Resort,
+  SnowForecast,
+  TerrainStatus,
+  WeatherStatus, 
+  getSnowForecast,
+  getTerrainStatus,
+  getWeatherStatus, 
 } from "./SnowAPI";
 
 
@@ -22,24 +23,8 @@ export default function Snow() {
   )
 }
 
-interface ResortMetadata {
-  name: string,
-  url: string,
-  statusUrl: string,
-  weatherUrl: string,
-  weatherDataUrl: string,
-  snowForecastUrl: string,
-}
-
-interface ResortData {
-  name: string,
-  weather: ResortWeatherData,
-  terrain: ResortTerrainLiftData,
-  snow: ResortForecastData,
-}
-
 function Main() {
-  const resorts = RESORTS as ResortMetadata[]
+  const resorts = RESORTS as Resort[]
 
   return (
     <main className="m-2 p-2 bg-slate-800 flex flex-col gap-2 text-white drop-shadow-lg">
@@ -50,43 +35,54 @@ function Main() {
         {
           resorts.length === 0 ?
             "Loading..." :
-            resorts.map(resort => <Resort key={resort.name} resortMetadata={resort} />)
+            resorts.map(resort => <Resort key={resort.name} resort={resort} />)
         }
       </div>
     </main>
   )
 }
 
-function Resort(props: { resortMetadata: ResortMetadata }) {
-  const [resort, setResort] = useState<ResortData | null>(null)
+function Resort(props: { resort: Resort }) {
+  const [weatherStatus, setWeatherStatus] = useState<WeatherStatus | null>(null)
+  const [terrainStatus, setTerrainStatus] = useState<TerrainStatus | null>(null)
+  const [snowForecast, setSnowForecast] = useState<SnowForecast | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!resort) {
-      console.log('Fetching data for ' + props.resortMetadata.name + '...')
-      const weatherPromise = getWeatherData(props.resortMetadata.weatherDataUrl)
-      const terrainPromise = getTerrainData(props.resortMetadata.statusUrl)
-      const snowPromise = getSnowData(props.resortMetadata.snowForecastUrl)
+    if (!weatherStatus || !terrainStatus || !snowForecast) {
+      console.log('Fetching data for ' + props.resort.name + '...')
+      const weatherPromise = getWeatherStatus(props.resort)
+      const terrainPromise = getTerrainStatus(props.resort)
+      const snowPromise = getSnowForecast(props.resort)
       Promise.all([weatherPromise, terrainPromise, snowPromise]).then(values => {
         const weather = values[0]
         const terrain = values[1]
         const snow = values[2]
-        setResort({ name: props.resortMetadata.name, weather, terrain, snow })
+        setWeatherStatus(weather)
+        setTerrainStatus(terrain)
+        setSnowForecast(snow)
       }).catch(e => {
         setError(e.message)
       })
     }
-  }, [resort, props.resortMetadata])
+  }, [props.resort])
 
-  if (!resort) {
+  if (!weatherStatus || !terrainStatus || !snowForecast) {
     return (
       <div className="p-2 bg-slate-700 flex flex-col gap-2 drop-shadow-lg rounded">
-        <h1 className="flex-1 font-bold text-xl text-slate-800"><a href={props.resortMetadata.url} target="_blank">{props.resortMetadata.name}</a></h1>
+        <h1 className="flex-1 font-bold text-xl text-slate-800"><a href={props.resort.url} target="_blank">{props.resort.name}</a></h1>
         <span className="flex-1 text-center">
           {error ? <p><EmojiIcon emoji="⚠️" />Error: {error}</p> : <EmojiIcon emoji="🔍" />}
         </span>
       </div >
     )
+  }
+
+  const resort = {
+    name: props.resort.name,
+    snow: snowForecast,
+    terrain: terrainStatus,
+    weather: weatherStatus,
   }
 
   // sum first 3 elements of snow to get next 24 hours
@@ -104,22 +100,22 @@ function Resort(props: { resortMetadata: ResortMetadata }) {
 
   return (
     <div className="p-2 bg-slate-700 flex flex-col gap-2 drop-shadow-lg rounded">
-      <h1 className="font-bold text-xl text-center"><a href={props.resortMetadata.url} target="_blank">{props.resortMetadata.name}</a></h1>
+      <h1 className="font-bold text-xl text-center"><a href={props.resort.url} target="_blank">{props.resort.name}</a></h1>
       <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
         <EmojiIcon emoji="🌡️" />
-        <TempIndicator temp={resort.weather.tempLow} srcUrl={props.resortMetadata.weatherUrl} />
-        <TempIndicator temp={resort.weather.tempCurrent} srcUrl={props.resortMetadata.weatherUrl} />
-        <TempIndicator temp={resort.weather.tempHigh} srcUrl={props.resortMetadata.weatherUrl} />
+        <TempIndicator temp={resort.weather.tempLow} srcUrl={props.resort.weatherUrl} />
+        <TempIndicator temp={resort.weather.tempCurrent} srcUrl={props.resort.weatherUrl} />
+        <TempIndicator temp={resort.weather.tempHigh} srcUrl={props.resort.weatherUrl} />
       </span>
       <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
         <EmojiIcon emoji="❄️ " />
-        <SnowIndicator inches={snowNext24h_in} srcUrl={props.resortMetadata.snowForecastUrl} />
-        <SnowIndicator inches={snowNext3d_in} srcUrl={props.resortMetadata.snowForecastUrl} />
-        <SnowIndicator inches={snowNext7d_in} srcUrl={props.resortMetadata.snowForecastUrl} />
+        <SnowIndicator inches={snowNext24h_in} srcUrl={props.resort.snowForecastUrl} />
+        <SnowIndicator inches={snowNext3d_in} srcUrl={props.resort.snowForecastUrl} />
+        <SnowIndicator inches={snowNext7d_in} srcUrl={props.resort.snowForecastUrl} />
       </span>
       <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
         <EmojiIcon emoji="🚡" />
-        <PercentIndicator percent={resort.terrain.terrainOpenPercent} srcUrl={props.resortMetadata.statusUrl} />
+        <PercentIndicator percent={resort.terrain.terrainOpenPercent} srcUrl={props.resort.statusUrl} />
       </span>
     </div>
   )
@@ -182,7 +178,7 @@ function SnowIndicator(props: { inches: number, srcUrl: string }) {
   }}>{display}</span>
 }
 
-function weatherToEmoji(weather: ResortWeatherData["weather"]): string {
+function weatherToEmoji(weather: WeatherStatus["weather"]): string {
   switch (weather) {
     case "SUNNY":
       return "☀️"

@@ -1,4 +1,4 @@
-import { ResortWeatherData } from '@/app/snow/SnowAPI'
+import { WeatherStatus } from '@/app/snow/SnowAPI'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 // CORS proxy for API calls to Vail Resorts websites
@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const data = await response.json()
-  const weatherData: ResortWeatherData = {
+  const weatherData: WeatherStatus = {
     name: data.HeaderSettings.DefaultWeatherLocation.Name,
 
     tempCurrent: data.CurrentTempStandard,
@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   res.status(200).json(weatherData)
 }
 
-function parseWeatherShortDescription(weatherShortDescription: string): ResortWeatherData["weather"] {
+function parseWeatherShortDescription(weatherShortDescription: string): WeatherStatus["weather"] {
   const desc = weatherShortDescription.toLowerCase()
   if (desc.includes("sun") || desc.includes("clear")) return "SUNNY"
   if (desc.includes("snow")) return "SNOW"

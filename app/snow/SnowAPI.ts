@@ -1,9 +1,24 @@
-export interface ResortForecastData {
+export interface Resort {
+  name: string,
+  isVail: boolean,
+  url: string,
+  statusUrl: string,
+  weatherUrl: string,
+  weatherDataUrl: string,
+  snowForecastUrl: string,
+}
+
+export interface SnowForecast {
   forecast: number[]
 }
 
-export async function getSnowData(url: string): Promise<ResortForecastData> {
-  const res = await fetch(`/api/snow/resort/vail/forecast?url=${url}`, {
+export async function getSnowForecast(resort: Resort): Promise<SnowForecast> {
+  if (resort.isVail) return getVailSnowForecast(resort)
+  throw new Error(`Resort ${resort.name} is not supported`)
+}
+
+async function getVailSnowForecast(resort: Resort): Promise<SnowForecast> {
+  const res = await fetch(`/api/snow/resort/vail/forecast?url=${resort.snowForecastUrl}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +29,7 @@ export async function getSnowData(url: string): Promise<ResortForecastData> {
   return await res.json()
 }
 
-export interface ResortTerrainLiftData {
+export interface TerrainStatus {
   "liftsOpen": number,
   "liftsTotal": number,
   "trailsOpen": number,
@@ -22,8 +37,13 @@ export interface ResortTerrainLiftData {
   "terrainOpenPercent": number,
 }
 
-export async function getTerrainData(url: string): Promise<ResortTerrainLiftData> {
-  const res = await fetch(`/api/snow/resort/vail/terrain?url=${url}`, {
+export async function getTerrainStatus(resort: Resort): Promise<TerrainStatus> {
+  if (resort.isVail) return getVailTerrainStatus(resort)
+  throw new Error(`Resort ${resort.name} is not supported`)
+}
+
+async function getVailTerrainStatus(resort: Resort): Promise<TerrainStatus> {
+  const res = await fetch(`/api/snow/resort/vail/terrain?url=${resort.statusUrl}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +54,7 @@ export async function getTerrainData(url: string): Promise<ResortTerrainLiftData
   return await res.json()
 }
 
-export interface ResortWeatherData {
+export interface WeatherStatus {
   "name": string,
   "tempCurrent": number,
   "tempLow": number,
@@ -46,8 +66,13 @@ export interface ResortWeatherData {
   "weather": "SUNNY" | "CLOUDY" | "SNOW" | "RAIN" | string,
 }
 
-export async function getWeatherData(url: string): Promise<ResortWeatherData> {
-  const res = await fetch(`/api/snow/resort/vail/weather?url=${url}`, {
+export async function getWeatherStatus(resort: Resort): Promise<WeatherStatus> {
+  if (resort.isVail) return getVailWeatherStatus(resort)
+  throw new Error(`Resort ${resort.name} is not supported`)
+}
+
+export async function getVailWeatherStatus(resort: Resort): Promise<WeatherStatus> {
+  const res = await fetch(`/api/snow/resort/vail/weather?url=${resort.weatherDataUrl}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

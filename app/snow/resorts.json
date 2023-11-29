@@ -1,6 +1,7 @@
 [
   {
     "name": "Stevens Pass, WA",
+    "isVail": true,
     "url": "https://www.stevenspass.com/",
     "statusUrl": "https://www.stevenspass.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
     "weatherUrl": "https://www.stevenspass.com/the-mountain/mountain-conditions/weather-report.aspx",
@@ -9,6 +10,7 @@
   },
   {
     "name": "Whistler, BC",
+    "isVail": true,
     "url": "https://www.whistlerblackcomb.com/",
     "statusUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
@@ -17,6 +19,7 @@
   },
   {
     "name": "Vail, CO",
+    "isVail": true,
     "url": "https://www.vail.com/",
     "statusUrl": "https://www.vail.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherUrl": "https://www.vail.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
@@ -25,6 +28,7 @@
   },
   {
     "name": "Park City, UT",
+    "isVail": true,
     "url": "https://www.parkcitymountain.com/",
     "statusUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
@@ -33,10 +37,20 @@
   },
   {
     "name": "Heavenly, CA",
+    "isVail": true,
     "url": "https://www.skiheavenly.com/",
     "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
     "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader",
     "snowForecastUrl": "https://www.snow-forecast.com/resorts/Heavenly-Ski/6day/mid"
+  },
+  {
+    "name": "Crystal Mountain, WA",
+    "isVail": false,
+    "url": "https://www.crystalmountainresort.com/",
+    "statusUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
+    "weatherUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
+    "weatherDataUrl": null,
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crystal-Mountain/6day/mid"
   }
 ]

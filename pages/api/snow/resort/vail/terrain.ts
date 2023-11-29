@@ -1,4 +1,4 @@
-import { ResortTerrainLiftData } from '@/app/snow/SnowAPI'
+import { TerrainStatus } from '@/app/snow/SnowAPI'
 import { NextApiRequest, NextApiResponse } from 'next'
 import * as htmlparser from 'htmlparser2'
 import * as cssSelect from 'css-select'
@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   res.status(200).json(terrainData)
 }
 
-function parseTerrainDataFromHTML(html: string): ResortTerrainLiftData {
+function parseTerrainDataFromHTML(html: string): TerrainStatus {
   const dom = htmlparser.parseDOM(html)
   const openSpans = cssSelect.selectAll('span.c118__number1--v1', dom)
   const totalSpans = cssSelect.selectAll('span.c118__number2--v1', dom)
