@@ -1,4 +1,4 @@
-import ResortWeatherData from '@/app/snow/ResortWeatherData'
+import { ResortWeatherData } from '@/app/snow/SnowAPI'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 // CORS proxy for API calls to Vail Resorts websites
@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const response = await fetch(url as string)
 
   if (!response.ok) {
-    res.status(500).json({ error: `Error fetching Vail data from ${url}: ${response.status} ${response.statusText}`})
+    res.status(500).json({ error: `Error fetching Vail data from ${url}: ${response.status} ${response.statusText}` })
     return
   }
 
@@ -38,7 +38,7 @@ function parseWeatherShortDescription(weatherShortDescription: string): ResortWe
   if (desc.includes("cloud")) return "CLOUDY"
 
   // if the above doesn't match, return the original string (and later, add it to the above)
-  return weatherShortDescription  
+  return weatherShortDescription
 }
 
 const sample = {

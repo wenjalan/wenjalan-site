@@ -1,4 +1,4 @@
-import ResortTerrainLiftData from '@/app/snow/ResortTerrainLiftData'
+import { ResortTerrainLiftData } from '@/app/snow/SnowAPI'
 import { NextApiRequest, NextApiResponse } from 'next'
 import * as htmlparser from 'htmlparser2'
 import * as cssSelect from 'css-select'
