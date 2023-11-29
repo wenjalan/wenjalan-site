@@ -1,12 +1,16 @@
 'use client'
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import Link from "next/link";
 import RESORTS from "./resorts.json"
 import './snow.css'
-import ResortWeatherData from "./ResortWeatherData";
-import ResortTerrainLiftData from "./ResortTerrainLiftData";
-import { ResortForecastData } from "./ResortForecastData";
+import { 
+  ResortForecastData, 
+  ResortTerrainLiftData, 
+  ResortWeatherData, 
+  getSnowData, 
+  getTerrainData, 
+  getWeatherData 
+} from "./SnowAPI";
 
 
 export default function Snow() {
@@ -194,40 +198,3 @@ function weatherToEmoji(weather: ResortWeatherData["weather"]): string {
       return weather
   }
 }
-
-async function getWeatherData(url: string): Promise<ResortWeatherData> {
-  const res = await fetch(`/api/snow/resort/weather?url=${url}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-  })
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
-  return await res.json()
-}
-
-async function getTerrainData(url: string): Promise<ResortTerrainLiftData> {
-  const res = await fetch(`/api/snow/resort/terrain?url=${url}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-  })
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
-  return await res.json()
-}
-
-async function getSnowData(url: string): Promise<ResortForecastData> {
-  const res = await fetch(`/api/snow/resort/forecast?url=${url}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-  })
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
-  return await res.json()
-}
-
