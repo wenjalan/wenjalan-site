@@ -1,6 +1,9 @@
+import Vail from './resorts/Vail'
+import Crystal from './resorts/Crystal'
+
 export interface Resort {
   name: string,
-  isVail: boolean,
+  isVailResort: boolean,
   url: string,
   statusUrl: string,
   weatherUrl: string,
@@ -13,20 +16,13 @@ export interface SnowForecast {
 }
 
 export async function getSnowForecast(resort: Resort): Promise<SnowForecast> {
-  if (resort.isVail) return getVailSnowForecast(resort)
-  throw new Error(`Resort ${resort.name} is not supported`)
-}
-
-async function getVailSnowForecast(resort: Resort): Promise<SnowForecast> {
-  const res = await fetch(`/api/snow/resort/vail/forecast?url=${resort.snowForecastUrl}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-  })
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
-  return await res.json()
+  if (resort.isVailResort) return Vail.getSnowForecast(resort)
+  switch (resort.name) {
+    case 'Crystal Mountain, WA':
+      return Crystal.getSnowForecast(resort)
+    default: 
+      throw new Error(`Resort ${resort.name} is not supported`)
+  }
 }
 
 export interface TerrainStatus {
@@ -38,20 +34,13 @@ export interface TerrainStatus {
 }
 
 export async function getTerrainStatus(resort: Resort): Promise<TerrainStatus> {
-  if (resort.isVail) return getVailTerrainStatus(resort)
-  throw new Error(`Resort ${resort.name} is not supported`)
-}
-
-async function getVailTerrainStatus(resort: Resort): Promise<TerrainStatus> {
-  const res = await fetch(`/api/snow/resort/vail/terrain?url=${resort.statusUrl}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-  })
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
-  return await res.json()
+  if (resort.isVailResort) return Vail.getTerrainStatus(resort)
+  switch (resort.name) {
+    case 'Crystal Mountain, WA':
+      return Crystal.getTerrainStatus(resort)
+    default:
+      throw new Error(`Resort ${resort.name} is not supported`)
+  }
 }
 
 export interface WeatherStatus {
@@ -67,18 +56,11 @@ export interface WeatherStatus {
 }
 
 export async function getWeatherStatus(resort: Resort): Promise<WeatherStatus> {
-  if (resort.isVail) return getVailWeatherStatus(resort)
-  throw new Error(`Resort ${resort.name} is not supported`)
-}
-
-export async function getVailWeatherStatus(resort: Resort): Promise<WeatherStatus> {
-  const res = await fetch(`/api/snow/resort/vail/weather?url=${resort.weatherDataUrl}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-  })
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
-  return await res.json()
+  if (resort.isVailResort) return Vail.getWeatherStatus(resort)
+  switch (resort.name) {
+    case 'Crystal Mountain, WA':
+      return Crystal.getWeatherStatus(resort)
+    default:
+      throw new Error(`Resort ${resort.name} is not supported`)
+  }
 }
