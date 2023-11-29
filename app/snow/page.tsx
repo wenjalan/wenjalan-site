@@ -65,7 +65,7 @@ function Resort(props: { resort: Resort }) {
         setError(e.message)
       })
     }
-  }, [props.resort])
+  }, [weatherStatus, terrainStatus, snowForecast, props.resort])
 
   if (!weatherStatus || !terrainStatus || !snowForecast) {
     return (
