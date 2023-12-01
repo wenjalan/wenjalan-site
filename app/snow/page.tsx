@@ -111,8 +111,8 @@ function Resort(props: { resort: Resort }) {
       </span>
       <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
         <EmojiIcon emoji="🚡" />
-        <Indicator>{resort.terrain.liftsOpen}</Indicator>
-        <Indicator>{resort.terrain.trailsOpen}</Indicator>
+        <Indicator>{resort.terrain.liftsOpen}/{resort.terrain.liftsTotal}</Indicator>
+        <Indicator>{resort.terrain.trailsOpen}/{resort.terrain.trailsTotal}</Indicator>
         <PercentIndicator percent={resort.terrain.terrainOpenPercent} srcUrl={props.resort.statusUrl} />
       </span>
     </div>
@@ -129,8 +129,8 @@ function Indicator(props: { options?: IndicatorOptions, children: React.ReactNod
   const options = props.options
   return (
     <span
-      className="cursor-pointer w-10 h-10 rounded"
-      onClick={(e) => open(options?.href)}
+      className="cursor-pointer w-10 h-10 rounded font-bold"
+      onClick={options?.href ? () => open(options?.href) : undefined}
       style={{
         color: options?.color ?? "black",
         backgroundColor: options?.backgroundColor ?? "white",
@@ -148,28 +148,31 @@ function EmojiIcon(props: { emoji: string }) {
 function PercentIndicator(props: { percent: number, srcUrl: string }) {
   const p = props.percent
   const display = p + "%"
-  let color
-  // bg-green-700
-  if (p === 100) color = "#10B981"
-  // bg-emerald-700
-  else if (p > 90) color = "#22D3EE"
-  // bg-amber-700
-  else if (p > 50) color = "#FBBF24"
-  // bg-orange-700
-  else if (p > 10) color = "#F59E0B"
-  // bg-red-700
-  else color = "#EF4444"
 
-  return <Indicator options={{ href: props.srcUrl, color: "white", backgroundColor: color }}>{display}</Indicator>
+  let color = "#EF4444"
+  if (p === 100) color = "#10B981" // bg-green-700
+  else if (p > 90) color = "#22D3EE" // bg-emerald-700
+  else if (p > 50) color = "#FBBF24" // bg-amber-700
+  else if (p > 10) color = "#F59E0B" // bg-orange-700
+
+  return (
+    <Indicator options={{
+      href: props.srcUrl,
+      color: "white",
+      backgroundColor: color
+    }}>
+      {display}
+    </Indicator>
+  )
 }
 
 function TempIndicator(props: { temp: number, srcUrl: string }) {
   const t = props.temp
   const display = t + "°"
   let color
-  
+
   // bg-green-600
-  if (t > 32) color = "#10B981" 
+  if (t > 32) color = "#10B981"
   // bg-cyan-600
   else if (t > 20) color = "#22D3EE"
   // bg-blue-600
@@ -178,8 +181,15 @@ function TempIndicator(props: { temp: number, srcUrl: string }) {
   else if (t > 0) color = "#6366F1"
   // bg-violet-700
   else color = "#8B5CF6"
-  
-  return <Indicator options={{ backgroundColor: color }}>{display}</Indicator>
+
+  return (
+    <Indicator options={{
+      backgroundColor: color,
+      href: props.srcUrl
+    }}>
+      {display}
+    </Indicator>
+  )
 }
 
 function SnowIndicator(props: { inches: number, srcUrl: string }) {
@@ -192,7 +202,15 @@ function SnowIndicator(props: { inches: number, srcUrl: string }) {
   const blue = Math.min(red / 2, 10)
   const color = `rgb(${red}%, ${green}%, ${blue}%)`
 
-  return <Indicator options={{ backgroundColor: color }}>{display}</Indicator>
+  return (
+    <Indicator options={{
+      color: "white",
+      backgroundColor: color,
+      href: props.srcUrl
+    }}>
+      {display}
+    </Indicator>
+  )
 }
 
 // like the above but the bg is white and the text is red
@@ -206,7 +224,11 @@ function InverseSnowIndicator(props: { inches: number, srcUrl: string }) {
   const blue = Math.min(red / 2, 10)
   const color = `rgb(${red}%, ${green}%, ${blue}%)`
 
-  return <Indicator options={{ backgroundColor: "white", color: color }}>{display}</Indicator>
+  return <Indicator options={{
+    backgroundColor: "white",
+    color: color,
+    href: props.srcUrl
+  }}>{display}</Indicator>
 }
 
 function weatherToEmoji(weather: WeatherStatus["weather"]): string {
