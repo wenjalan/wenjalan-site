@@ -44,14 +44,11 @@ export async function getTerrainStatus(resort: Resort): Promise<TerrainStatus> {
 }
 
 export interface WeatherStatus {
-  "name": string,
   "tempCurrent": number,
   "tempLow": number,
   "tempHigh": number,
   "snowLastDay": number | string,
   "snowLastWeek": number | string,
-  "liftsOpen": number,
-  "liftsTotal": number,
   "weather": "SUNNY" | "CLOUDY" | "SNOW" | "RAIN" | string,
 }
 

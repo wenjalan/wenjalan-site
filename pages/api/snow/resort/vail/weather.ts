@@ -13,17 +13,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const data = await response.json()
   const weatherData: WeatherStatus = {
-    name: data.HeaderSettings.DefaultWeatherLocation.Name,
-
     tempCurrent: data.CurrentTempStandard,
     tempLow: data.LowTempStandard,
     tempHigh: data.HighTempStandard,
 
     snowLastDay: data.SnowReportSections[0].Depth.Inches,
     snowLastWeek: data.SnowReportSections[1].Description === "7 Day<br/>Snowfall" ? `${data.SnowReportSections[1].Depth.Inches} in` : "-",
-
-    liftsOpen: data.OpenLifts,
-    liftsTotal: data.TotalLifts,
 
     weather: parseWeatherShortDescription(data.WeatherShortDescription),
   }

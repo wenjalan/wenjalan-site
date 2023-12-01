@@ -2,7 +2,7 @@ import { Resort, SnowForecast, TerrainStatus, WeatherStatus } from "../SnowAPI"
 import ResortAPI from "./ResortAPI"
 
 async function getSnowForecast(resort: Resort): Promise<SnowForecast> {
-  const res = await fetch(`/api/snow/resort/vail/forecast?url=${resort.snowForecastUrl}`)
+  const res = await fetch(`/api/snow/resort/snowforecast?url=${resort.snowForecastUrl}`)
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
   return await res.json()
 }
