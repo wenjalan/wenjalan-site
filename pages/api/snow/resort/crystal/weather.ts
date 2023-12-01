@@ -16,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     tempLow: parseInt(data.CurrentConditions.MidMountain.TemperatureLowF),
     tempHigh: parseInt(data.CurrentConditions.MidMountain.TemperatureHighF),
     snowLastDay: parseInt(data.SnowReport.MidMountainArea.Last24HoursIn),
-    snowLastWeek: parseInt(data.SnowReport.MidMountainArea.Last7DaysIn),
     weather: data.CurrentConditions.MidMountain.Name,
   }
   res.status(200).json(status)

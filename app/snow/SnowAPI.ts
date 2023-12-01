@@ -47,8 +47,7 @@ export interface WeatherStatus {
   "tempCurrent": number,
   "tempLow": number,
   "tempHigh": number,
-  "snowLastDay": number | string,
-  "snowLastWeek": number | string,
+  "snowLastDay": number,
   "weather": "SUNNY" | "CLOUDY" | "SNOW" | "RAIN" | string,
 }
 

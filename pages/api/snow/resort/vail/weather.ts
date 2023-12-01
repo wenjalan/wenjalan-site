@@ -16,10 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     tempCurrent: data.CurrentTempStandard,
     tempLow: data.LowTempStandard,
     tempHigh: data.HighTempStandard,
-
-    snowLastDay: data.SnowReportSections[0].Depth.Inches,
-    snowLastWeek: data.SnowReportSections[1].Description === "7 Day<br/>Snowfall" ? `${data.SnowReportSections[1].Depth.Inches} in` : "-",
-
+    snowLastDay: parseInt(data.SnowReportSections[0].Depth.Inches),
     weather: parseWeatherShortDescription(data.WeatherShortDescription),
   }
   res.status(200).json(weatherData)
@@ -35,7 +32,6 @@ function parseWeatherShortDescription(weatherShortDescription: string): WeatherS
   // if the above doesn't match, return the original string (and later, add it to the above)
   return weatherShortDescription
 }
-
 const sample = {
   HeaderSettings: {
     EnableCart: true,
