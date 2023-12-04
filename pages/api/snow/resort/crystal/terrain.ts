@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     liftsTotal: data.SnowReport.TotalLifts,
     trailsOpen: data.SnowReport.TotalOpenTrails,
     trailsTotal: data.SnowReport.TotalTrails,
-    terrainOpenPercent: parseInt(data.SnowReport.OpenTerrainAcres) / parseInt(data.SnowReport.TotalTerrainAcres),
+    terrainOpenPercent: Math.round(parseInt(data.SnowReport.OpenTerrainAcres) / parseInt(data.SnowReport.TotalTerrainAcres)),
   }
   res.status(200).json(status)
 }

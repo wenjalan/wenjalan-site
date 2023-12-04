@@ -30,7 +30,7 @@ function Main() {
     <main className="m-2 p-2 bg-slate-800 flex flex-col gap-2 text-white drop-shadow-lg">
       <h1 className="font-bold text-xl">Snow Report</h1>
       <p className="text-lg">Collects temperature, snowfall, lift status and trail status from various ski resorts.</p>
-      <i>First 3 numbers are the low, current, and high temperatures. The next 3 are snowfall in the next 24, next 3 days, and next week.</i>
+      <i>First 3 numbers are the current, low and high temps. The next 3 are snowfall past 24 hours, next 24, and next 3 days. Final 3 are lifts open, trails open, and total terrain open.</i>
       <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         {
           resorts.length === 0 ?
@@ -99,27 +99,28 @@ function Resort(props: { resort: Resort }) {
       <h1 className="font-bold text-xl text-center"><a href={props.resort.url} target="_blank">{props.resort.name}</a></h1>
       <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
         <EmojiIcon emoji="🌡️" />
-        <TempIndicator temp={resort.weather.tempCurrent} srcUrl={props.resort.weatherUrl} />
-        <TempIndicator temp={resort.weather.tempLow} srcUrl={props.resort.weatherUrl} />
-        <TempIndicator temp={resort.weather.tempHigh} srcUrl={props.resort.weatherUrl} />
+        <TempIndicator title="Current Temp F" temp={resort.weather.tempCurrent} srcUrl={props.resort.weatherUrl} />
+        <TempIndicator title="Low Temp F" temp={resort.weather.tempLow} srcUrl={props.resort.weatherUrl} />
+        <TempIndicator title="Hi Temp F" temp={resort.weather.tempHigh} srcUrl={props.resort.weatherUrl} />
       </span>
       <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
         <EmojiIcon emoji="❄️ " />
-        <InverseSnowIndicator inches={resort.weather.snowLastDay} srcUrl={props.resort.snowForecastUrl} />
-        <SnowIndicator inches={snowNext24h_in} srcUrl={props.resort.snowForecastUrl} />
-        <SnowIndicator inches={snowNext7d_in} srcUrl={props.resort.snowForecastUrl} />
+        <InverseSnowIndicator title={"Snow Last 24h"} inches={resort.weather.snowLastDay} srcUrl={props.resort.snowForecastUrl} />
+        <SnowIndicator title={"Snow Next 24h"} inches={snowNext24h_in} srcUrl={props.resort.snowForecastUrl} />
+        <SnowIndicator title={"Snow Next 7d"} inches={snowNext7d_in} srcUrl={props.resort.snowForecastUrl} />
       </span>
       <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
         <EmojiIcon emoji="🚡" />
-        <Indicator>{resort.terrain.liftsOpen}/{resort.terrain.liftsTotal}</Indicator>
-        <Indicator>{resort.terrain.trailsOpen}/{resort.terrain.trailsTotal}</Indicator>
-        <PercentIndicator percent={resort.terrain.terrainOpenPercent} srcUrl={props.resort.statusUrl} />
+        <Indicator options={{ href: props.resort.statusUrl, title: "Lifts Open"}}>{resort.terrain.liftsOpen}/{resort.terrain.liftsTotal}</Indicator>
+        <Indicator options={{ href: props.resort.statusUrl, title: "Trails Open"}}>{resort.terrain.trailsOpen}/{resort.terrain.trailsTotal}</Indicator>
+        <PercentIndicator title={"Terrain Open"} percent={resort.terrain.terrainOpenPercent} srcUrl={props.resort.statusUrl} />
       </span>
     </div>
   )
 }
 
 interface IndicatorOptions {
+  title?: string,
   href?: string,
   color?: string,
   backgroundColor?: string,
@@ -129,6 +130,7 @@ function Indicator(props: { options?: IndicatorOptions, children: React.ReactNod
   const options = props.options
   return (
     <span
+      title={options?.title ?? undefined}
       className="cursor-pointer w-10 h-10 rounded font-bold"
       onClick={options?.href ? () => open(options?.href) : undefined}
       style={{
@@ -145,7 +147,7 @@ function EmojiIcon(props: { emoji: string }) {
   return <span className="text-2xl leading-10 w-10 h-10">{props.emoji}</span>
 }
 
-function PercentIndicator(props: { percent: number, srcUrl: string }) {
+function PercentIndicator(props: { title: string, percent: number, srcUrl: string }) {
   const p = props.percent
   const display = p + "%"
 
@@ -157,6 +159,7 @@ function PercentIndicator(props: { percent: number, srcUrl: string }) {
 
   return (
     <Indicator options={{
+      title: props.title,
       href: props.srcUrl,
       color: "white",
       backgroundColor: color
@@ -166,7 +169,7 @@ function PercentIndicator(props: { percent: number, srcUrl: string }) {
   )
 }
 
-function TempIndicator(props: { temp: number, srcUrl: string }) {
+function TempIndicator(props: { title: string, temp: number, srcUrl: string }) {
   const t = props.temp
   const display = t + "°"
   let color
@@ -184,6 +187,7 @@ function TempIndicator(props: { temp: number, srcUrl: string }) {
 
   return (
     <Indicator options={{
+      title: props.title,
       backgroundColor: color,
       href: props.srcUrl
     }}>
@@ -192,7 +196,7 @@ function TempIndicator(props: { temp: number, srcUrl: string }) {
   )
 }
 
-function SnowIndicator(props: { inches: number, srcUrl: string }) {
+function SnowIndicator(props: { title: string, inches: number, srcUrl: string }) {
   const i = props.inches
   const display = i === 0 ? "-" : i + "\""
 
@@ -204,6 +208,7 @@ function SnowIndicator(props: { inches: number, srcUrl: string }) {
 
   return (
     <Indicator options={{
+      title: props.title,
       color: "white",
       backgroundColor: color,
       href: props.srcUrl
@@ -214,7 +219,7 @@ function SnowIndicator(props: { inches: number, srcUrl: string }) {
 }
 
 // like the above but the bg is white and the text is red
-function InverseSnowIndicator(props: { inches: number, srcUrl: string }) {
+function InverseSnowIndicator(props: { title: string, inches: number, srcUrl: string }) {
   const i = props.inches
   const display = i === 0 ? "-" : i + "\""
 
@@ -225,6 +230,7 @@ function InverseSnowIndicator(props: { inches: number, srcUrl: string }) {
   const color = `rgb(${red}%, ${green}%, ${blue}%)`
 
   return <Indicator options={{
+    title: props.title,
     backgroundColor: "white",
     color: color,
     href: props.srcUrl
