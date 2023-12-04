@@ -20,13 +20,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 function getForecast(dom: Document) {
-  const snowContent = cssSelect.selectOne('div.forecast-table__content', dom)
-  const snowRow = cssSelect.selectOne('tr.forecast-table-snow.forecast-table__row', snowContent)
-  const snowSpans = cssSelect.selectAll('span', snowRow)
-  // @ts-ignore: trust me bro
-  const forecast = snowSpans.filter(span => span.children[0]).map(span => {
+  try {
+    const snowContent = cssSelect.selectOne('div.forecast-table__content', dom)
+    const table = cssSelect.selectOne('table', snowContent)
+    const tbody = cssSelect.selectOne('tbody', table)
+    const snowRow = cssSelect.selectAll('tr', tbody)[5]
+    const snowDivs = cssSelect.selectAll('div', snowRow)
+    const snowSpans = cssSelect.selectAll('span', snowDivs)
+    // remove first element (label)
+    snowSpans.shift()
     // @ts-ignore: trust me bro
-    return span.children[0].data === "—" ? 0 : parseInt(span.children[0].data)
-  })
-  return forecast
+    const forecast = snowSpans.filter(span => span.children[0]).map(span => {
+      // @ts-ignore: trust me bro
+      const data = span.children[0].data
+      return data === "—" ? 0 : parseInt(data)
+    })
+    return forecast
+  } catch (e) {
+    console.error(e)
+    return [0]
+  }
 }
