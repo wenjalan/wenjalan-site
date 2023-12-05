@@ -10,7 +10,7 @@ import { Resort } from "./Resort";
 export default function Snow() {
   return (
     <div className="flex flex-col">
-      <NavBar />
+      <NavBar active="snow" />
       <Main />
     </div>
   )

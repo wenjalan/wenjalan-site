@@ -1,12 +1,11 @@
 'use client'
 import NavBar from "@/app/components/NavBar";
-import { log } from "console";
 import { useState } from "react";
 
 export default function OneRepMax() {
   return (
     <div className="flex flex-col">
-      <NavBar />
+      <NavBar active="strength" />
       <Main />
     </div>
   )
