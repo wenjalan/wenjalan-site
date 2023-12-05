@@ -61,19 +61,19 @@ export function Resort(props: { resort: Resort }) {
   const snowDaily_in = snowDaily_cm.map(cm => Math.round(cm / 2.54))
 
   return (
-    <div className="p-2 sm:flex-1 bg-slate-700 flex flex-col gap-2 drop-shadow-lg font-mono">
-      <span className="flex flex-row text-white gap-1">
-        <h1 className="flex-1 font-bold text-xl"><a href={props.resort.url} target="_blank">{props.resort.name.toUpperCase()}</a></h1>
+    <div className="sm:max-w-screen-sm bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
+      <span className="flex flex-row text-white gap-2 cursor-pointer" onClick={() => open(props.resort.url, "_blank")}>
+        <h1 className="flex-1 font-bold text-xl">{props.resort.name.toUpperCase()}</h1>
         <h1 className="font-bold text-xl">{weatherToEmoji(resort.weather.weather)}{resort.weather.tempCurrent}°F</h1>
       </span>
-      <span className="flex flex-row text-white gap-1 text-sm leading-10 text-center">
+      <span className="flex flex-row text-white text-sm leading-10 text-center">
         {
           snowDaily_in.map((inches, i) => <SnowIndicator key={i} title={"Snow Day " + (i + 1)} inches={inches} srcUrl={props.resort.snowForecastUrl} />)
         }
       </span>
-      <span className="flex flex-row text-black gap-1 text-sm text-center">
+      <span className="flex flex-row text-black gap-1 text-sm text-center cursor-pointer drop-shadow-xl">
         <span
-          className="bg-white flex-1 rounded self-center font-bold"
+          className="bg-white flex-1 self-center font-bold"
           style={{
             backgroundColor: getBGPercentColor({ p: resort.terrain.terrainOpenPercent }),
           }}
@@ -103,7 +103,7 @@ function SnowIndicator(props: { title: string, inches: number, srcUrl: string })
   return (
     <span
       title={props.title}
-      className="flex-1 cursor-pointer rounded font-bold"
+      className="w-10 h-10 flex-1 cursor-pointer font-bold drop-shadow-xl"
       onClick={() => open(props.srcUrl)}
       style={{
         color: "white",
