@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from "react";
-import Image from 'next/image'
 import {
   Resort,
   SnowForecast,
@@ -63,28 +62,21 @@ export function Resort(props: { resort: Resort }) {
 
   return (
     <div className="sm:max-w-screen-sm bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
-      <span className="flex flex-row text-white gap-2 cursor-pointer" onClick={() => open(props.resort.url, "_blank")}>
-        <h1 className="flex-1 font-bold text-xl">{props.resort.name.toUpperCase()}</h1>
-        <h1 className="font-bold text-xl">{weatherToEmoji(resort.weather.weather)}{resort.weather.tempCurrent}°F</h1>
-      </span>
+      <ResortHeader resort={resort} />
       {props.resort.camPreviews ? <CameraPreviews srcs={props.resort.camPreviews} /> : undefined}
-      <span className="flex flex-row text-white text-sm leading-10 text-center">
-        {
-          snowDaily_in.map((inches, i) => <SnowIndicator key={i} title={"Snow Day " + (i + 1)} inches={inches} srcUrl={props.resort.snowForecastUrl} />)
-        }
-      </span>
-      <span className="flex flex-row text-black gap-1 text-sm text-center cursor-pointer drop-shadow-xl">
-        <span
-          className="bg-white flex-1 self-center font-bold"
-          style={{
-            backgroundColor: getBGPercentColor({ p: resort.terrain.terrainOpenPercent }),
-          }}
-          onClick={() => open(props.resort.statusUrl)}
-        >
-          {resort.terrain.liftsOpen}/{resort.terrain.liftsTotal} Lifts {resort.terrain.trailsOpen}/{resort.terrain.trailsTotal} Trails ({resort.terrain.terrainOpenPercent}%)
-        </span>
-      </span>
+      <SnowForecastBar forecast={snowDaily_in} href={props.resort.snowForecastUrl} />
+      <StatusBar terrainStatus={resort.terrain} href={props.resort.statusUrl} />
     </div>
+  )
+}
+
+function ResortHeader(props: { resort: any }) {
+  const resort = props.resort
+  return (
+    <span className="flex flex-row text-white gap-2 cursor-pointer" onClick={() => open(props.resort.url, "_blank")}>
+      <h1 className="flex-1 font-bold text-xl">{props.resort.name.toUpperCase()}</h1>
+      <h1 className="font-bold text-xl">{weatherToEmoji(resort.weather.weather)}{resort.weather.tempCurrent}°F</h1>
+    </span>
   )
 }
 
@@ -104,6 +96,36 @@ function CameraPreviews(props: { srcs: string[] }) {
         &gt;
       </span>
       <img src={srcs[index]} />
+    </span>
+  )
+}
+
+function SnowForecastBar(props: { forecast: number[], href: string }) {
+  const forecast = props.forecast
+  const href = props.href
+  return (
+    <span className="flex flex-row text-white text-sm leading-10 text-center">
+      {
+        forecast.map((inches, i) => <SnowIndicator key={i} title={"Snow Day " + (i + 1)} inches={inches} srcUrl={href} />)
+      }
+    </span>
+  )
+}
+
+function StatusBar(props: { terrainStatus: TerrainStatus, href: string }) {
+  const status = props.terrainStatus
+  const href = props.href
+  return (
+    <span className="flex flex-row text-black gap-1 text-sm text-center cursor-pointer drop-shadow-xl">
+      <span
+        className="bg-white flex-1 self-center font-bold"
+        style={{
+          backgroundColor: getBGPercentColor({ p: status.terrainOpenPercent }),
+        }}
+        onClick={() => open(href)}
+      >
+        {status.liftsOpen}/{status.liftsTotal} Lifts {status.trailsOpen}/{status.trailsTotal} Trails ({status.terrainOpenPercent}%)
+      </span>
     </span>
   )
 }
