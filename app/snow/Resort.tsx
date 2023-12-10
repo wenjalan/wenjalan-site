@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
+import Image from 'next/image'
 import {
   Resort,
   SnowForecast,
@@ -66,6 +67,7 @@ export function Resort(props: { resort: Resort }) {
         <h1 className="flex-1 font-bold text-xl">{props.resort.name.toUpperCase()}</h1>
         <h1 className="font-bold text-xl">{weatherToEmoji(resort.weather.weather)}{resort.weather.tempCurrent}°F</h1>
       </span>
+      {props.resort.camPreviews ? <CameraPreviews srcs={props.resort.camPreviews} /> : undefined}
       <span className="flex flex-row text-white text-sm leading-10 text-center">
         {
           snowDaily_in.map((inches, i) => <SnowIndicator key={i} title={"Snow Day " + (i + 1)} inches={inches} srcUrl={props.resort.snowForecastUrl} />)
@@ -77,12 +79,32 @@ export function Resort(props: { resort: Resort }) {
           style={{
             backgroundColor: getBGPercentColor({ p: resort.terrain.terrainOpenPercent }),
           }}
-          onClick={() => open(props.resort.statusUrl)}  
+          onClick={() => open(props.resort.statusUrl)}
         >
           {resort.terrain.liftsOpen}/{resort.terrain.liftsTotal} Lifts {resort.terrain.trailsOpen}/{resort.terrain.trailsTotal} Trails ({resort.terrain.terrainOpenPercent}%)
         </span>
       </span>
     </div>
+  )
+}
+
+function CameraPreviews(props: { srcs: string[] }) {
+  const srcs = props.srcs
+  const [index, setIndex] = useState(0)
+
+  return (
+    <span className="border">
+      <span className="cursor-pointer border bg-black px-2 absolute left-5 bottom-24" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
+        &lt;
+      </span>
+      <span className="absolute right-6 top-14">
+        {index + 1}/{srcs.length}
+      </span>
+      <span className="cursor-pointer border bg-black px-2 absolute right-5 bottom-24" onClick={() => setIndex((index + 1) % srcs.length)}>
+        &gt;
+      </span>
+      <img src={srcs[index]} />
+    </span>
   )
 }
 

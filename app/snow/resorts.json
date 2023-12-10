@@ -6,7 +6,14 @@
     "statusUrl": "https://www.stevenspass.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
     "weatherUrl": "https://www.stevenspass.com/the-mountain/mountain-conditions/weather-report.aspx",
     "weatherDataUrl": "https://www.stevenspass.com/api/PageApi/GetWeatherDataForHeader",
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Stevens-Pass/6day/mid"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Stevens-Pass/6day/mid",
+    "camPreviews": [
+      "https://live8p.brownrice.com/cam-images/stevenspasscourtyard.jpg",
+      "https://live8p.brownrice.com/cam-images/stevenspassjupiter.jpg",
+      "https://live8p.brownrice.com/cam-images/stevenspasssnowstake.jpg",
+      "https://cache.snow.com/mtncams/Skyline.jpg",
+      "https://cache.snow.com/mtncams/SPBaseArea.jpg"
+    ]
   },
   {
     "name": "Whistler, BC",
@@ -15,7 +22,16 @@
     "statusUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
     "weatherDataUrl": "https://www.whistlerblackcomb.com/api/PageApi/GetWeatherDataForHeader",
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Whistler-Blackcomb/6day/mid"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Whistler-Blackcomb/6day/mid",
+    "camPreviews": [
+      "https://live9.brownrice.com/cam-images/whistlervillage.jpg",
+      "https://live9.brownrice.com/cam-images/whistler7thheaven.jpg",
+      "https://live9.brownrice.com/cam-images/whistlersnowstack.jpg",
+      "https://cache.snow.com/mtncams/1excalibur.jpg",
+      "https://cache.snow.com/Mtncams/2south.jpg",
+      "https://cache.snow.com/Mtncams/3glaciercreek.jpg",
+      "https://cache.snow.com/Mtncams/creek.jpg"
+    ]
   },
   {
     "name": "Vail, CO",

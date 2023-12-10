@@ -9,6 +9,7 @@ export interface Resort {
   weatherUrl: string,
   weatherDataUrl: string,
   snowForecastUrl: string,
+  camPreviews: string[] | undefined,
 }
 
 export interface SnowForecast {
