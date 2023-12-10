@@ -16,6 +16,14 @@ export function Resort(props: { resort: Resort }) {
   const [snowForecast, setSnowForecast] = useState<SnowForecast | null>(null)
   const [error, setError] = useState<string | null>(null)
 
+  const refresh = () => {
+    setWeatherStatus(null)
+    setTerrainStatus(null)
+    setSnowForecast(null)
+    setError(null)
+    window.alert('REFRESH')
+  }
+
   useEffect(() => {
     if (!weatherStatus || !terrainStatus || !snowForecast) {
       console.log('Fetching data for ' + props.resort.name + '...')
@@ -40,7 +48,14 @@ export function Resort(props: { resort: Resort }) {
       <div className="p-2 bg-slate-700 flex flex-col gap-1 drop-shadow-lg">
         <h1 className="text-center text-slate-300">Fetching {props.resort.name}...</h1>
         <span className="flex-1 text-center">
-          {error ? <p><EmojiIcon emoji="⚠️" />Error: {error}</p> : undefined}
+          {
+            error ?
+              <div className="flex flex-col">
+                <p><EmojiIcon emoji="⚠️" />Error: {error}</p>
+                <RefreshButton onRefresh={refresh} />
+              </div> :
+              undefined
+          }
         </span>
       </div >
     )
@@ -62,7 +77,7 @@ export function Resort(props: { resort: Resort }) {
 
   return (
     <div className="sm:max-w-screen-sm bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
-      <ResortHeader resort={resort} />
+      <ResortHeader resort={resort} refresh={refresh} />
       {props.resort.camPreviews ? <CameraPreviews srcs={props.resort.camPreviews} /> : undefined}
       <SnowForecastBar forecast={snowDaily_in} href={props.resort.snowForecastUrl} />
       <StatusBar terrainStatus={resort.terrain} href={props.resort.statusUrl} />
@@ -70,12 +85,13 @@ export function Resort(props: { resort: Resort }) {
   )
 }
 
-function ResortHeader(props: { resort: any }) {
+function ResortHeader(props: { resort: any, refresh: () => void }) {
   const resort = props.resort
   return (
-    <span className="flex flex-row text-white gap-2 cursor-pointer" onClick={() => open(props.resort.url, "_blank")}>
-      <h1 className="flex-1 font-bold text-xl">{props.resort.name.toUpperCase()}</h1>
-      <h1 className="font-bold text-xl">{weatherToEmoji(resort.weather.weather)}{resort.weather.tempCurrent}°F</h1>
+    <span className="flex flex-row text-white gap-2 cursor-pointer items-center">
+      <h1 className="font-bold text-xl" onClick={() => open(props.resort.url, "_blank")}>{props.resort.name.toUpperCase()}</h1>
+      <RefreshButton onRefresh={props.refresh}/>
+      <h1 className="font-bold text-xl flex-1 text-end">{weatherToEmoji(resort.weather.weather)}{resort.weather.tempCurrent}°F</h1>
     </span>
   )
 }
@@ -86,13 +102,13 @@ function CameraPreviews(props: { srcs: string[] }) {
 
   return (
     <span className="border">
-      <span className="cursor-pointer border bg-black px-2 absolute left-5 bottom-24" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
+      <span className="cursor-pointer border bg-black px-2 absolute left-5 top-64" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
         &lt;
       </span>
       <span className="absolute right-6 top-14">
         {index + 1}/{srcs.length}
       </span>
-      <span className="cursor-pointer border bg-black px-2 absolute right-5 bottom-24" onClick={() => setIndex((index + 1) % srcs.length)}>
+      <span className="cursor-pointer border bg-black px-2 absolute right-5 top-64" onClick={() => setIndex((index + 1) % srcs.length)}>
         &gt;
       </span>
       <img src={srcs[index]} />
@@ -127,6 +143,19 @@ function StatusBar(props: { terrainStatus: TerrainStatus, href: string }) {
         {status.liftsOpen}/{status.liftsTotal} Lifts {status.trailsOpen}/{status.trailsTotal} Trails ({status.terrainOpenPercent}%)
       </span>
     </span>
+  )
+}
+
+function RefreshButton(props: { onRefresh: () => void }) {
+  return (
+    <div className="flex flex-col items-center">
+      <span
+        onClick={() => props.onRefresh()}
+        className="cursor-pointer hover:bg-slate-600 px-2 text-slate-800 text-sm"
+      >
+        REFRESH
+      </span>
+    </div>
   )
 }
 
