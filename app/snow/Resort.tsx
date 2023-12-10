@@ -21,7 +21,6 @@ export function Resort(props: { resort: Resort }) {
     setTerrainStatus(null)
     setSnowForecast(null)
     setError(null)
-    window.alert('REFRESH')
   }
 
   useEffect(() => {
