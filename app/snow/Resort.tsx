@@ -87,18 +87,20 @@ function CameraPreviews(props: { srcs: string[] }) {
   const [index, setIndex] = useState(0)
 
   return (
-    <span className="border">
-      <span className="cursor-pointer border bg-black px-2 absolute left-5 top-64" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
-        &lt;
-      </span>
-      <span className="absolute right-6 top-14">
+    <div className="relative">
+      <img className="border" src={srcs[index]} />
+      <div className="absolute bottom-0 right-0 flex flex-row m-2 bg-black text-center leading-7">
+        <span className="cursor-pointer border w-8 h-8" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
+          &lt;
+        </span>
+        <span className="cursor-pointer border w-8 h-8" onClick={() => setIndex((index + 1) % srcs.length)}>
+          &gt;
+        </span>
+      </div>
+      <span className="absolute top-0 right-0 flex-1 self-end p-2">
         {index + 1}/{srcs.length}
       </span>
-      <span className="cursor-pointer border bg-black px-2 absolute right-5 top-64" onClick={() => setIndex((index + 1) % srcs.length)}>
-        &gt;
-      </span>
-      <img src={srcs[index]} />
-    </span>
+    </div>
   )
 }
 
