@@ -2,9 +2,9 @@
   {
     "name": "Stevens Pass, WA",
     "isVailResort": true,
+    "id": "stevenspass",
     "url": "https://www.stevenspass.com/",
     "statusUrl": "https://www.stevenspass.com/the-mountain/mountain-conditions/lift-and-terrain-status.aspx",
-    "weatherUrl": "https://www.stevenspass.com/the-mountain/mountain-conditions/weather-report.aspx",
     "weatherDataUrl": "https://www.stevenspass.com/api/PageApi/GetWeatherDataForHeader",
     "snowForecastUrl": "https://www.snow-forecast.com/resorts/Stevens-Pass/6day/mid",
     "camPreviews": [
@@ -18,9 +18,9 @@
   {
     "name": "Whistler, BC",
     "isVailResort": true,
+    "id": "whistlerblackcomb",
     "url": "https://www.whistlerblackcomb.com/",
     "statusUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherUrl": "https://www.whistlerblackcomb.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
     "weatherDataUrl": "https://www.whistlerblackcomb.com/api/PageApi/GetWeatherDataForHeader",
     "snowForecastUrl": "https://www.snow-forecast.com/resorts/Whistler-Blackcomb/6day/mid",
     "camPreviews": [
@@ -36,33 +36,34 @@
   {
     "name": "Vail, CO",
     "isVailResort": true,
+    "id": "vail",
     "url": "https://www.vail.com/",
     "statusUrl": "https://www.vail.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherUrl": "https://www.vail.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
     "weatherDataUrl": "https://www.vail.com/api/PageApi/GetWeatherDataForHeader",
     "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/6day/mid"
   },
   {
     "name": "Park City, UT",
     "isVailResort": true,
+    "id": "parkcity",
     "url": "https://www.parkcitymountain.com/",
     "statusUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
     "weatherDataUrl": "https://www.parkcitymountain.com/api/PageApi/GetWeatherDataForHeader",
     "snowForecastUrl": "https://www.snow-forecast.com/resorts/Park-City/6day/mid"
   },
   {
     "name": "Heavenly, CA",
     "isVailResort": true,
+    "id": "heavenly",
     "url": "https://www.skiheavenly.com/",
     "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx",
     "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader",
     "snowForecastUrl": "https://www.snow-forecast.com/resorts/Heavenly-Ski/6day/mid"
   },
   {
     "name": "Crystal Mountain, WA",
     "isVailResort": false,
+    "id": "crystalmountain",
     "url": "https://www.crystalmountainresort.com/",
     "statusUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
     "weatherUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",

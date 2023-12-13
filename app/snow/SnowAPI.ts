@@ -3,12 +3,12 @@ import Crystal from './resorts/Crystal'
 
 export interface Resort {
   name: string,
+  id: string,
   isVailResort: boolean,
   url: string,
   statusUrl: string,
-  weatherUrl: string,
-  weatherDataUrl: string,
   snowForecastUrl: string,
+  weatherDataUrl: string,
   camPreviews: string[] | undefined,
 }
 

@@ -11,86 +11,73 @@ import {
 } from "./SnowAPI";
 
 export function Resort(props: { resort: Resort }) {
-  const [weatherStatus, setWeatherStatus] = useState<WeatherStatus | null>(null)
-  const [terrainStatus, setTerrainStatus] = useState<TerrainStatus | null>(null)
-  const [snowForecast, setSnowForecast] = useState<SnowForecast | null>(null)
+  const resort = props.resort
+  const [weatherStatus, setWeatherStatus] = useState<WeatherStatus | undefined | null>(undefined)
+  const [terrainStatus, setTerrainStatus] = useState<TerrainStatus | undefined | null>(undefined)
+  const [snowForecast, setSnowForecast] = useState<SnowForecast | undefined | null>(undefined)
   const [error, setError] = useState<string | null>(null)
 
   const refresh = () => {
-    setWeatherStatus(null)
-    setTerrainStatus(null)
-    setSnowForecast(null)
+    setWeatherStatus(undefined)
+    setTerrainStatus(undefined)
+    setSnowForecast(undefined)
     setError(null)
   }
 
   useEffect(() => {
-    if (!weatherStatus || !terrainStatus || !snowForecast) {
-      console.log('Fetching data for ' + props.resort.name + '...')
-      const weatherPromise = getWeatherStatus(props.resort)
-      const terrainPromise = getTerrainStatus(props.resort)
-      const snowPromise = getSnowForecast(props.resort)
-      Promise.all([weatherPromise, terrainPromise, snowPromise]).then(values => {
-        const weather = values[0]
-        const terrain = values[1]
-        const snow = values[2]
+    console.log('Fetching data for ' + resort.name + '...')
+    const weatherPromise = getWeatherStatus(resort)
+    const terrainPromise = getTerrainStatus(resort)
+    const snowPromise = getSnowForecast(resort)
+    Promise.all([weatherPromise, terrainPromise, snowPromise])
+      .then(([weather, terrain, snow]) => {
         setWeatherStatus(weather)
         setTerrainStatus(terrain)
         setSnowForecast(snow)
-      }).catch(e => {
-        setError(e.message)
       })
-    }
-  }, [weatherStatus, terrainStatus, snowForecast, props.resort])
+      .catch((err) => {
+        console.error(err)
+        setError(err.message)
+      })
+  }, [resort, error])
 
-  if (!weatherStatus || !terrainStatus || !snowForecast) {
+  if (weatherStatus === undefined || terrainStatus === undefined || snowForecast === undefined) {
     return (
       <div className="p-2 bg-slate-700 flex flex-col gap-1 drop-shadow-lg">
         <h1 className="text-center text-slate-300">Fetching {props.resort.name}...</h1>
-        <span className="flex-1 text-center">
-          {
-            error ?
-              <div className="flex flex-col">
-                <p><EmojiIcon emoji="⚠️" />Error: {error}</p>
-                <RefreshButton onRefresh={refresh} />
-              </div> :
-              undefined
-          }
-        </span>
-      </div >
+        {
+          error ?
+            <span className="text-center text-red-500">{error}</span> :
+            undefined
+        }
+        <RefreshButton onRefresh={refresh} />
+      </div>
     )
   }
 
-  const resort = {
-    name: props.resort.name,
-    snow: snowForecast,
-    terrain: terrainStatus,
-    weather: weatherStatus,
-  }
-
-  // sum every 3 elements of snow to get daily snowfall
-  const snowDaily_cm = []
-  for (let i = 0; i < resort.snow.forecast.length; i += 3) {
-    snowDaily_cm.push(resort.snow.forecast.slice(i, i + 3).reduce((a, b) => a + b, 0))
-  }
-  const snowDaily_in = snowDaily_cm.map(cm => Math.round(cm / 2.54))
-
   return (
     <div className="sm:max-w-screen-sm bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
-      <ResortHeader resort={resort} refresh={refresh} />
-      {props.resort.camPreviews ? <CameraPreviews srcs={props.resort.camPreviews} /> : undefined}
-      <SnowForecastBar forecast={snowDaily_in} href={props.resort.snowForecastUrl} />
-      <StatusBar terrainStatus={resort.terrain} href={props.resort.statusUrl} />
+      <ResortHeader resort={resort} weather={weatherStatus} refresh={refresh} />
+      {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : undefined}
+      <SnowForecastBar forecast={snowForecast} href={resort.snowForecastUrl} />
+      <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} />
     </div>
   )
 }
 
-function ResortHeader(props: { resort: any, refresh: () => void }) {
+function ResortHeader(props: { resort: Resort, weather: WeatherStatus | null, refresh: () => void }) {
   const resort = props.resort
+  const weather = props.weather
+  const refresh = props.refresh
   return (
     <span className="flex flex-row text-white gap-2 cursor-pointer items-center">
-      <h1 className="font-bold text-xl" onClick={() => open(props.resort.url, "_blank")}>{props.resort.name.toUpperCase()}</h1>
-      <RefreshButton onRefresh={props.refresh}/>
-      <h1 className="font-bold text-xl flex-1 text-end">{weatherToEmoji(resort.weather.weather)}{resort.weather.tempCurrent}°F</h1>
+      <h1 className="font-bold text-xl" onClick={() => open(resort.url, "_blank")}>{resort.name.toUpperCase()}</h1>
+      <RefreshButton onRefresh={refresh} />
+      {
+        weather === null ?
+          <h1 className="font-bold text-xl flex-1 text-end">N/A</h1> :
+          <h1 className="font-bold text-xl flex-1 text-end">{weatherToEmoji(weather.weather)}{weather.tempCurrent}°F</h1>
+      }
     </span>
   )
 }
@@ -115,21 +102,55 @@ function CameraPreviews(props: { srcs: string[] }) {
   )
 }
 
-function SnowForecastBar(props: { forecast: number[], href: string }) {
-  const forecast = props.forecast
+function SnowForecastBar(props: { forecast: SnowForecast | null, href: string }) {
+  if (!props.forecast) {
+    return (
+      <span className="flex flex-row text-white text-sm leading-10 self-center">
+        Error loading Snow Forecast.
+      </span>
+    )
+  }
+
+  const forecast = props.forecast.forecast
   const href = props.href
+
+
+  // sum every 3 elements of snow to get daily snowfall
+  const snowDaily_cm = []
+  for (let i = 0; i < forecast.length; i += 3) {
+    snowDaily_cm.push(forecast.slice(i, i + 3).reduce((a, b) => a + b, 0))
+  }
+  const snowDaily_in = snowDaily_cm.map(cm => Math.round(cm / 2.54))
+
   return (
     <span className="flex flex-row text-white text-sm leading-10 text-center">
       {
-        forecast.map((inches, i) => <SnowIndicator key={i} title={"Snow Day " + (i + 1)} inches={inches} srcUrl={href} />)
+        snowDaily_in.map((inches, i) => <SnowIndicator key={i} title={"Snow Day " + (i + 1)} inches={inches} srcUrl={href} />)
       }
     </span>
   )
 }
 
-function StatusBar(props: { terrainStatus: TerrainStatus, href: string }) {
+function StatusBar(props: { terrainStatus: TerrainStatus | null, href: string }) {
   const status = props.terrainStatus
   const href = props.href
+
+  if (!status) {
+    return (
+      <span className="flex flex-row text-black gap-1 text-sm text-center cursor-pointer drop-shadow-xl">
+        <span
+          className="bg-white flex-1 self-center font-bold"
+          style={{
+            backgroundColor: getBGPercentColor({ p: 0 }),
+          }}
+          onClick={() => open(href)}
+        >
+          Error retrieving terrain status.
+        </span>
+      </span>
+    )
+  }
+
   return (
     <span className="flex flex-row text-black gap-1 text-sm text-center cursor-pointer drop-shadow-xl">
       <span
