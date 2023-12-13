@@ -26,18 +26,29 @@ export function Resort(props: { resort: Resort }) {
 
   useEffect(() => {
     console.log('Fetching data for ' + resort.name + '...')
-    const weatherPromise = getWeatherStatus(resort)
-    const terrainPromise = getTerrainStatus(resort)
-    const snowPromise = getSnowForecast(resort)
-    Promise.all([weatherPromise, terrainPromise, snowPromise])
-      .then(([weather, terrain, snow]) => {
-        setWeatherStatus(weather)
-        setTerrainStatus(terrain)
-        setSnowForecast(snow)
+
+    getWeatherStatus(resort)
+      .then(setWeatherStatus)
+      .catch((e) => {
+        console.error(e)
+        setError(`Error loading weather status: ${e.message}`)
+        setWeatherStatus(null)
       })
-      .catch((err) => {
-        console.error(err)
-        setError(err.message)
+
+    getTerrainStatus(resort)
+      .then(setTerrainStatus)
+      .catch((e) => {
+        console.error(e)
+        setError(`Error loading terrain status: ${e.message}`)
+        setTerrainStatus(null)
+      })
+
+    getSnowForecast(resort)
+      .then(setSnowForecast)
+      .catch((e) => {
+        console.error(e)
+        setError(`Error loading snow forecast: ${e.message}`)
+        setSnowForecast(null)
       })
   }, [resort, error])
 
@@ -45,11 +56,6 @@ export function Resort(props: { resort: Resort }) {
     return (
       <div className="p-2 bg-slate-700 flex flex-col gap-1 drop-shadow-lg">
         <h1 className="text-center text-slate-300">Fetching {props.resort.name}...</h1>
-        {
-          error ?
-            <span className="text-center text-red-500">{error}</span> :
-            undefined
-        }
         <RefreshButton onRefresh={refresh} />
       </div>
     )
@@ -61,6 +67,7 @@ export function Resort(props: { resort: Resort }) {
       {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : undefined}
       <SnowForecastBar forecast={snowForecast} href={resort.snowForecastUrl} />
       <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} />
+      { error ? <p className="text-red-500">{error}</p> : undefined }
     </div>
   )
 }
