@@ -40,7 +40,13 @@
     "url": "https://www.vail.com/",
     "statusUrl": "https://www.vail.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherDataUrl": "https://www.vail.com/api/PageApi/GetWeatherDataForHeader",
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/6day/mid"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/6day/mid",
+    "camPreviews": [
+      "https://live8p.brownrice.com/cam-images/vailch21.jpg",
+      "https://live8p.brownrice.com/cam-images/vailch11.jpg",
+      "https://live8p.brownrice.com/cam-images/vailch2.jpg",
+      "https://live8p.brownrice.com/cam-images/vaileaglesnest.jpg"
+    ]
   },
   {
     "name": "Park City, UT",
@@ -49,7 +55,13 @@
     "url": "https://www.parkcitymountain.com/",
     "statusUrl": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherDataUrl": "https://www.parkcitymountain.com/api/PageApi/GetWeatherDataForHeader",
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Park-City/6day/mid"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Park-City/6day/mid",
+    "camPreviews": [
+      "https://live9.brownrice.com/cam-images/parkcitylookoutcabin.jpg",
+      "https://live9.brownrice.com/cam-images/parkcitycrescentridge.jpg",
+      "https://live9.brownrice.com/cam-images/parkcitytopcrescent.jpg",
+      "https://live9.brownrice.com/cam-images/parkcitymtnvillage.jpg"
+    ]
   },
   {
     "name": "Heavenly, CA",
@@ -58,7 +70,13 @@
     "url": "https://www.skiheavenly.com/",
     "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
     "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader",
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Heavenly-Ski/6day/mid"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Heavenly-Ski/6day/mid",
+    "camPreviews": [
+      "https://live9.brownrice.com/cam-images/heavenlymidstation.jpg",
+      "https://live9.brownrice.com/cam-images/heavenlytram.jpg",
+      "https://live9.brownrice.com/cam-images/heavenlydipper.jpg",
+      "https://live9.brownrice.com/cam-images/heavenlyeastpeak.jpg"
+    ]
   },
   {
     "name": "Crystal Mountain, WA",
@@ -68,6 +86,16 @@
     "statusUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
     "weatherUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
     "weatherDataUrl": null,
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crystal-Mountain/6day/mid"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crystal-Mountain/6day/mid",
+    "liveCameras": [
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%226aa5450c-77c3-4df3-b3a4-d9c4e70ddc25%22%2C%20%22embedLinkId%22%3A%20%229bd18eb3-506a-46ad-9eb3-69ff8c2b7def%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_0736fb79590c71de0367dd624e12acce%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_0736fb79590c71de0367dd624e12acce/6aa5450c-77c3-4df3-b3a4-d9c4e70ddc25/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_0736fb79590c71de0367dd624e12acce/6aa5450c-77c3-4df3-b3a4-d9c4e70ddc25/high_res/livevideo.m3u8%22%7D",
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%2204def8c6-c068-4d33-91ca-dfa3c19b5aa1%22%2C%20%22embedLinkId%22%3A%20%2257383142-4e1e-42ea-b7e7-6ad2c484a400%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_9690dbc984d70ac90c20952feee68c7d%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_9690dbc984d70ac90c20952feee68c7d/04def8c6-c068-4d33-91ca-dfa3c19b5aa1/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_9690dbc984d70ac90c20952feee68c7d/04def8c6-c068-4d33-91ca-dfa3c19b5aa1/high_res/livevideo.m3u8%22%7D",
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%2249dc703e-b7d9-4862-afca-281d7e4f6966%22%2C%20%22embedLinkId%22%3A%20%22a875540b-adc5-44e6-b3e2-d6ae3c673a96%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_2bbea7681fcbef1b9cafcd222cb47939%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_2bbea7681fcbef1b9cafcd222cb47939/49dc703e-b7d9-4862-afca-281d7e4f6966/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_2bbea7681fcbef1b9cafcd222cb47939/49dc703e-b7d9-4862-afca-281d7e4f6966/high_res/livevideo.m3u8%22%7D",
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%2291e08e5f-7307-4f52-9492-6d9d3c35fc0b%22%2C%20%22embedLinkId%22%3A%20%221c7e5d45-a476-4153-834e-8e83bd59e120%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_a256d8ae3bb24b729e36ab53f96ab0e0%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_a256d8ae3bb24b729e36ab53f96ab0e0/91e08e5f-7307-4f52-9492-6d9d3c35fc0b/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_a256d8ae3bb24b729e36ab53f96ab0e0/91e08e5f-7307-4f52-9492-6d9d3c35fc0b/high_res/livevideo.m3u8%22%7D",
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%222cc828e3-0a86-44c6-a749-bb28b06c7164%22%2C%20%22embedLinkId%22%3A%20%226612d717-05be-4519-a0c6-0c4737184e01%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_e9e5e8950ea9f43079f3fb85a58a9a6b%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_e9e5e8950ea9f43079f3fb85a58a9a6b/2cc828e3-0a86-44c6-a749-bb28b06c7164/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_e9e5e8950ea9f43079f3fb85a58a9a6b/2cc828e3-0a86-44c6-a749-bb28b06c7164/high_res/livevideo.m3u8%22%7D",
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%223dc252c1-c4b8-4f85-b472-b934349a5abd%22%2C%20%22embedLinkId%22%3A%20%2264e85d54-3b45-497d-8478-0fc7ab4e85da%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%2Cwww.crystalmountainresort.com%2Ccontent.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_2103b299b65ee1c1eccfe0a857241942%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_2103b299b65ee1c1eccfe0a857241942/3dc252c1-c4b8-4f85-b472-b934349a5abd/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_2103b299b65ee1c1eccfe0a857241942/3dc252c1-c4b8-4f85-b472-b934349a5abd/high_res/livevideo.m3u8%22%7D",
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%22a3af5c49-8795-4569-9721-d63e73b305dd%22%2C%20%22embedLinkId%22%3A%20%222ade15d0-b1bf-4c63-bbd1-aa18e56a870b%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_eee854d7e2ba1d07757cf6aadc3349bb%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_eee854d7e2ba1d07757cf6aadc3349bb/a3af5c49-8795-4569-9721-d63e73b305dd/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_eee854d7e2ba1d07757cf6aadc3349bb/a3af5c49-8795-4569-9721-d63e73b305dd/high_res/livevideo.m3u8%22%7D",
+      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%22e91af2c6-d8ed-4b6e-8616-e84365672cb7%22%2C%20%22embedLinkId%22%3A%20%22751aa456-cd4c-4e29-ab7e-c4c05ddc71d6%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_75827c479739ff316f138b802a87fa67%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_75827c479739ff316f138b802a87fa67/e91af2c6-d8ed-4b6e-8616-e84365672cb7/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_75827c479739ff316f138b802a87fa67/e91af2c6-d8ed-4b6e-8616-e84365672cb7/high_res/livevideo.m3u8%22%7D"
+    ]
   }
 ]
