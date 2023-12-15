@@ -62,24 +62,25 @@ export function Resort(props: { resort: Resort }) {
   }
 
   return (
-    <div className="sm:max-w-screen-sm bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
-      <ResortHeader resort={resort} weather={weatherStatus} refresh={refresh} />
-      {resort.liveCameras ? <LiveCameras srcs={resort.liveCameras} /> : undefined}
+    <div className="w-full sm:w-1/3 md:w-1/4 h-fit grow bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
+      <ResortHeader resort={resort} weather={weatherStatus} refresh={refresh} error={error} />
+      {/* {resort.liveCameras ? <LiveCameras srcs={resort.liveCameras} /> : undefined} */}
       {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : undefined}
       <SnowForecastBar forecast={snowForecast} href={resort.snowForecastUrl} />
       <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} />
-      {error ? <p className="text-red-500">{error}</p> : undefined}
     </div>
   )
 }
 
-function ResortHeader(props: { resort: Resort, weather: WeatherStatus | null, refresh: () => void }) {
+function ResortHeader(props: { resort: Resort, weather: WeatherStatus | null, refresh: () => void, error: string | null }) {
   const resort = props.resort
   const weather = props.weather
   const refresh = props.refresh
+  const error = props.error
+  const h1Class = error === null ? 'font-bold text-xl' : 'font-bold text-xl text-yellow-500'
   return (
     <span className="flex flex-row text-white gap-2 cursor-pointer items-center">
-      <h1 className="font-bold text-xl" onClick={() => open(resort.url, "_blank")}>{resort.name.toUpperCase()}</h1>
+      <h1 className={h1Class} onClick={() => open(resort.url, "_blank")}>{resort.name.toUpperCase()}</h1>
       <RefreshButton onRefresh={refresh} />
       {
         weather === null ?
