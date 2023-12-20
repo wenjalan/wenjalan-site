@@ -16,6 +16,26 @@
     ]
   },
   {
+    "name": "Crystal Mountain, WA",
+    "isVailResort": false,
+    "id": "crystalmountain",
+    "url": "https://www.crystalmountainresort.com/",
+    "statusUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
+    "weatherUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
+    "weatherDataUrl": null,
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crystal-Mountain/6day/mid",
+    "camPreviews": [
+      "https://media-mammothresorts-com.s3.us-west-2.amazonaws.com/mmsa/crystal/cams/MidWay_Web_Cam.jpg",
+      "https://media-mammothresorts-com.s3.us-west-2.amazonaws.com/mmsa/crystal/cams/Mt_Rainier.jpg",
+      "https://s3.amazonaws.com/assets.quicktrax.com/crystal-mountain/webcams/summit-ridgeline",
+      "https://media-mammothresorts-com.s3.us-west-2.amazonaws.com/mmsa/crystal/cams/Top_of_6.jpg",
+      "https://media-mammothresorts-com.s3.us-west-2.amazonaws.com/mmsa/crystal/cams/Bottom_of_6_S.jpg",
+      "https://media-mammothresorts-com.s3.us-west-2.amazonaws.com/mmsa/crystal/cams/Gold_Hills.jpg",
+      "https://media-mammothresorts-com.s3.us-west-2.amazonaws.com/mmsa/crystal/cams/Base_Web_Cam.jpg",
+      "https://s3.amazonaws.com/assets.quicktrax.com/crystal-mountain/webcams/snow-stake"
+    ]
+  },
+  {
     "name": "Whistler, BC",
     "isVailResort": true,
     "id": "whistlerblackcomb",
@@ -31,6 +51,21 @@
       "https://cache.snow.com/Mtncams/2south.jpg",
       "https://cache.snow.com/Mtncams/3glaciercreek.jpg",
       "https://cache.snow.com/Mtncams/creek.jpg"
+    ]
+  },
+  {
+    "name": "Heavenly, CA",
+    "isVailResort": true,
+    "id": "heavenly",
+    "url": "https://www.skiheavenly.com/",
+    "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
+    "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader",
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Heavenly-Ski/6day/mid",
+    "camPreviews": [
+      "https://live9.brownrice.com/cam-images/heavenlymidstation.jpg",
+      "https://live9.brownrice.com/cam-images/heavenlytram.jpg",
+      "https://live9.brownrice.com/cam-images/heavenlydipper.jpg",
+      "https://live9.brownrice.com/cam-images/heavenlyeastpeak.jpg"
     ]
   },
   {
@@ -61,35 +96,6 @@
       "https://live9.brownrice.com/cam-images/parkcitylookoutcabin.jpg",
       "https://live9.brownrice.com/cam-images/parkcitymtnvillage.jpg",
       "https://live9.brownrice.com/cam-images/parkcitycrescentridge.jpg"
-    ]
-  },
-  {
-    "name": "Heavenly, CA",
-    "isVailResort": true,
-    "id": "heavenly",
-    "url": "https://www.skiheavenly.com/",
-    "statusUrl": "https://www.skiheavenly.com/the-mountain/mountain-conditions/terrain-and-lift-status.aspx",
-    "weatherDataUrl": "https://www.skiheavenly.com/api/PageApi/GetWeatherDataForHeader",
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Heavenly-Ski/6day/mid",
-    "camPreviews": [
-      "https://live9.brownrice.com/cam-images/heavenlymidstation.jpg",
-      "https://live9.brownrice.com/cam-images/heavenlytram.jpg",
-      "https://live9.brownrice.com/cam-images/heavenlydipper.jpg",
-      "https://live9.brownrice.com/cam-images/heavenlyeastpeak.jpg"
-    ]
-  },
-  {
-    "name": "Crystal Mountain, WA",
-    "isVailResort": false,
-    "id": "crystalmountain",
-    "url": "https://www.crystalmountainresort.com/",
-    "statusUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
-    "weatherUrl": "https://www.crystalmountainresort.com/the-mountain/mountain-report-and-webcams/",
-    "weatherDataUrl": null,
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crystal-Mountain/6day/mid",
-    "liveCameras": [
-      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%2249dc703e-b7d9-4862-afca-281d7e4f6966%22%2C%20%22embedLinkId%22%3A%20%22a875540b-adc5-44e6-b3e2-d6ae3c673a96%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_eec067daed1acebf6715596f515bbc1d%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_eec067daed1acebf6715596f515bbc1d/49dc703e-b7d9-4862-afca-281d7e4f6966/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_eec067daed1acebf6715596f515bbc1d/49dc703e-b7d9-4862-afca-281d7e4f6966/high_res/livevideo.m3u8%22%7D",
-      "https://command.verkada.com/embed.html#%7B%22entityId%22%3A%20%226aa5450c-77c3-4df3-b3a4-d9c4e70ddc25%22%2C%20%22embedLinkId%22%3A%20%229bd18eb3-506a-46ad-9eb3-69ff8c2b7def%22%2C%20%22domains%22%3A%20%22%2A.crystalmountainresort.com%22%2C%20%22token%22%3A%20%22v2_c50719807fa4b303296c21dd80c213af%22%2C%20%22urlSD%22%3A%20%22https%3A//vstream.command.verkada.com/filter/transcode/v2_c50719807fa4b303296c21dd80c213af/6aa5450c-77c3-4df3-b3a4-d9c4e70ddc25/low_res/livevideo.m3u8%22%2C%20%22urlHD%22%3A%20%22https%3A//vfilter.command.verkada.com/filter/transcode/v2_c50719807fa4b303296c21dd80c213af/6aa5450c-77c3-4df3-b3a4-d9c4e70ddc25/high_res/livevideo.m3u8%22%7D"
     ]
   }
 ]
