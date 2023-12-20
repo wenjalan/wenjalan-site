@@ -62,9 +62,9 @@ export function Resort(props: { resort: Resort }) {
   }
 
   return (
-    <div className="w-full sm:w-1/3 md:w-1/4 h-fit grow bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
+    <div className="w-full sm:w-1/3 md:w-1/4 bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
       <ResortHeader resort={resort} weather={weatherStatus} refresh={refresh} error={error} />
-      {/* {resort.liveCameras ? <LiveCameras srcs={resort.liveCameras} /> : undefined} */}
+      {resort.liveCameras ? <LiveCameras srcs={resort.liveCameras} /> : undefined}
       {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : undefined}
       <SnowForecastBar forecast={snowForecast} href={resort.snowForecastUrl} />
       <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} />
@@ -95,8 +95,8 @@ function LiveCameras(props: { srcs: string[] }) {
   const srcs = props.srcs
   const [index, setIndex] = useState(0)
   return (
-    <div className="relative h-[16rem] sm:h-[29rem] border">
-      <iframe className="h-full w-full" src={srcs[index]} key={index}></iframe>
+    <div className="border grow relative">
+      <iframe className="overflow-hidden h-full w-full" src={srcs[index]} key={index}></iframe>
       <div className="absolute bottom-0 right-0 flex flex-row m-2 bg-black text-center leading-7">
         <span className="cursor-pointer border w-8 h-8" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
           &lt;
