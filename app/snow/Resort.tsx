@@ -120,7 +120,7 @@ function CameraPreviews(props: { srcs: string[] }) {
 
   return (
     <div className="relative grow-0">
-      <img className="border object-cover h-48 sm:h-72 w-full" src={srcs[index]} />
+      <img className="border object-cover h-48 sm:h-72 xl:h-96 w-full" src={srcs[index]} />
       <div className="absolute bottom-0 right-0 flex flex-row m-2 bg-black text-center leading-7">
         <span className="cursor-pointer border w-8 h-8" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
           &lt;
