@@ -62,12 +62,14 @@ export function Resort(props: { resort: Resort }) {
   }
 
   return (
-    <div className="w-full sm:w-1/3 md:w-1/4 bg-slate-700 p-2 flex flex-col gap-2 drop-shadow-xl font-mono">
-      <ResortHeader resort={resort} weather={weatherStatus} refresh={refresh} error={error} />
-      {resort.liveCameras ? <LiveCameras srcs={resort.liveCameras} /> : undefined}
-      {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : undefined}
-      <SnowForecastBar forecast={snowForecast} href={resort.snowForecastUrl} />
-      <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} />
+    <div className="w-full sm:w-1/2 xl:w-1/3 flex flex-col drop-shadow-xl font-mono">
+      <div className="bg-slate-700 m-1 p-4 rounded">
+        <ResortHeader resort={resort} weather={weatherStatus} refresh={refresh} error={error} />
+        {resort.liveCameras ? <LiveCameras srcs={resort.liveCameras} /> : undefined}
+        {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : undefined}
+        <SnowForecastBar forecast={snowForecast} href={resort.snowForecastUrl} />
+        <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} />
+      </div>
     </div>
   )
 }
@@ -118,7 +120,7 @@ function CameraPreviews(props: { srcs: string[] }) {
 
   return (
     <div className="relative grow-0">
-      <img className="border object-cover h-72 w-full" src={srcs[index]} />
+      <img className="border object-cover h-48 sm:h-72 w-full" src={srcs[index]} />
       <div className="absolute bottom-0 right-0 flex flex-row m-2 bg-black text-center leading-7">
         <span className="cursor-pointer border w-8 h-8" onClick={() => setIndex(index === 0 ? srcs.length - 1 : index - 1)}>
           &lt;

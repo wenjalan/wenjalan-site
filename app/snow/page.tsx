@@ -22,7 +22,7 @@ function Main() {
     <main className="m-2 p-2 bg-slate-800 flex flex-col gap-2 text-white drop-shadow-lg">
       <h1 className="font-bold text-xl">Snow Resort Status</h1>
       <p className="text-sm">Collects weather, terrain and lift statuses for various Ski Resorts. Click to view sources.</p>
-      <div className="flex flex-row flex-wrap gap-2">
+      <div className="flex flex-row flex-wrap">
         {
           resorts.length === 0 ?
             "Loading..." :
