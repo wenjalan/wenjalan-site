@@ -63,12 +63,12 @@ export function Resort(props: { resort: Resort }) {
 
   return (
     <div className="w-full sm:w-1/2 xl:w-1/3 flex flex-col drop-shadow-xl font-mono">
-      <div className="bg-slate-700 m-1 p-4 rounded">
+      <div className="bg-slate-700 h-full m-1 p-4 rounded">
         <ResortHeader resort={resort} weather={weatherStatus} refresh={refresh} error={error} />
         {resort.liveCameras ? <LiveCameras srcs={resort.liveCameras} /> : undefined}
-        {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : undefined}
+        {resort.camPreviews ? <CameraPreviews srcs={resort.camPreviews} /> : <CameraPlaceholder />}
         <SnowForecastBar forecast={snowForecast} href={resort.snowForecastUrl} />
-        <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} />
+        {resort.statusUrl ? <StatusBar terrainStatus={terrainStatus} href={resort.statusUrl} /> : undefined}
       </div>
     </div>
   )
@@ -132,6 +132,16 @@ function CameraPreviews(props: { srcs: string[] }) {
       <span className="absolute top-0 right-0 flex-1 self-end p-2">
         {index + 1}/{srcs.length}
       </span>
+    </div>
+  )
+}
+
+function CameraPlaceholder() {
+  return (
+    <div className="relative grow-0">
+      <div className="h-48 sm:h-72 xl:h-96 w-full border">
+        <div className="h-full w-full bg-gradient-to-r from-slate-700 to-slate-100"></div>
+      </div>
     </div>
   )
 }

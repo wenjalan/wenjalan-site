@@ -36,6 +36,16 @@
     ]
   },
   {
+    "name": "Snoqualmie Pass, WA",
+    "isVailResort": false,
+    "id": "summitatsnoqualmie",
+    "url": "https://summitatsnoqualmie.com/",
+    "statusUrl": null,
+    "weatherUrl": "https://summitatsnoqualmie.com/conditions",
+    "weatherDataUrl": null,
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/The-Summit-at-Snoqualmie/6day/mid"
+  },
+  {
     "name": "Whistler, BC",
     "isVailResort": true,
     "id": "whistlerblackcomb",

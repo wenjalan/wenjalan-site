@@ -1,5 +1,6 @@
 import Vail from './resorts/Vail'
 import Crystal from './resorts/Crystal'
+import Snoqualmie from './resorts/Snoqualmie'
 
 export interface Resort {
   name: string,
@@ -22,6 +23,8 @@ export async function getSnowForecast(resort: Resort): Promise<SnowForecast> {
   switch (resort.name) {
     case 'Crystal Mountain, WA':
       return Crystal.getSnowForecast(resort)
+    case 'Snoqualmie Pass, WA':
+      return Snoqualmie.getSnowForecast(resort)
     default: 
       throw new Error(`Resort ${resort.name} is not supported`)
   }
