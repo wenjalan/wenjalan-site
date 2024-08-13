@@ -1,0 +1,316 @@
+[
+  { 
+    "name": "Broadcast Coffee & Bakery",
+    "address": "6515 Roosevelt Way NE, Seattle, WA 98115",
+    "rating": 3,
+    "images": [
+      "https://lh5.googleusercontent.com/p/AF1QipORIP4JdfzK2OJT3S5S8aSxJu6EGHowDFNfekKc=s635-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipP98a-6n4GdhxGIWSuzpJXmZRoM5HrA-Oa-nu6r=s846-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipOFXL8vX6Ykz9hb95iW9HyY7x0Izdhi5r_uq0J6=s481-k-no"
+    ],
+    "tags": [
+      "roaster", 
+      "pastries"
+    ],
+    "notes": "Thanks to a partnership with Temple Pastries (a local Seattle bakery), their (very tasty) pastry selection is more diverse than most coffee shops."
+  },
+  {
+    "name": "Santo Coffee Co.",
+    "address": "1325 NE 65th St, Seattle, WA 98115",
+    "rating": 3,
+    "images": [
+      "https://lh5.googleusercontent.com/p/AF1QipNreYsD8085xy2M34aiO3gWQxcyKCOrazYy3mG8=w408-h305-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipNG06EyCX2m0XZTqcuewq1361EjK4LbCNBIp0mJ=s846-k-no",
+      "https://lh3.ggpht.com/p/AF1QipPlUbKOPYkg3fLZ8QC1vdhszOdLwOHEkFjIoHsx=s512"
+    ],
+    "tags": [
+      "roaster", 
+      "pastries"
+    ],
+    "notes": "Santo Coffee Co. was founded by former Sounders FC player, Fredy Montero. They specialize in Colombian coffee. Their coffee blend is one of the best I've had."
+  },
+  {
+    "name": "Armistice Coffee Roosevelt",
+    "address": "6717 Roosevelt Way NE Suite 101, Seattle, WA 98115",
+    "rating": 3,
+    "images": [
+      "https://lh5.googleusercontent.com/p/AF1QipPkutdZfr29jNvQEOlUfOe4XCIC3zF5_Rk227ze=s497-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipM51jMHp2vWEj7U0ob2Ay-Ytk10uHcW9iefbZ7a=s488-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipNuiZJZ0UQO8vydcCYDE4Q7l4SIdh4kwgwcdd_E=s635-k-no"
+    ],
+    "tags": [
+      "roaster", 
+      "pastries",
+      "drinks"
+    ],
+    "notes": "Serves Turkish coffee, complete with traditional coffeeware. Sometimes they roast coffee in store, which smells delicious."
+  },
+  {
+    "name": "Espresso Vivace Capitol Hill",
+    "address": "532 Broadway E, Seattle, WA 98102",
+    "rating": 3,
+    "images": [
+      "https://lh3.ggpht.com/p/AF1QipPZsJdHBA2xwIHqW7wfyRAVXWRQSpgPvofvEai1=s512",
+      "https://lh5.googleusercontent.com/p/AF1QipOU8kOBESHUC15l8ns0cr7Shr99x2o4cmiFHATg=w203-h152-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipNcKj2pL6GNHPMBR4LARTISuRfYFt4PjnD2O4jx=s644-k-no"
+    ],
+    "tags": [
+      "roaster",
+      "pastries",
+      "historic"
+    ],
+    "notes": "A traditional Italian espresso bar founded in 1988, making it one of the oldest coffee shops in Seattle. Self-proclaimed as a charter to \"research, develop and prepare caffe espresso as a new culinary art.\""
+  },
+  {
+    "name": "203F Coffee Co.",
+    "address": "11901 NE Village Plaza Suite 171, Kirkland, WA 98034",
+    "rating": 3,
+    "images": [
+      "https://lh5.googleusercontent.com/p/AF1QipMm0iAshIIqLI3w_zB4r6fZofMomYP-4AjIMR7c=w152-h86-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipNqmgMwKSfoVu6UDjv97EePgvXWODbuYFiGizIc=s508-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipPy6vfRgoxvIeTCb_fTK5AGS0l7eVjM_FMcTWRZ=w203-h270-k-no"
+    ],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "Cafe with a special emphasis on aesthetic, design and ambiance. Lattes and cappuccinos are some of the best I've had."
+  },
+  {
+    "name": "Fulcrum Cafe.",
+    "address": "590 Bell St, Seattle, WA 98121",
+    "rating": 2,
+    "images": [
+      "https://lh5.googleusercontent.com/p/AF1QipO_ybY_vCfi7USfRvE8MOpJlbvcRkwIr-p2tHZ7=w86-h129-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipMZ1DFzWKjcqWThqKEthZ_EN-M7cFxgDv297FV_=s634-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipOgeL2CH_T2feraky_fc3rioz6F9QHW7k4xWXWP=s508-k-no"
+    ],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "Cafe with an emphasis on interior design. Feels like a blend of a showcase and a coffee shop. Coffee's alright."
+  },
+  {
+    "name": "Victorola Coffee Roasters", 
+    "address": "310 E Pike St, Seattle, WA 98122",
+    "rating": 2,
+    "images": [
+      "https://lh5.googleusercontent.com/p/AF1QipMvRzlHBJL4wOiarQ4X41m32-0ddeqiOoPefOqY=w423-h298-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipMbGlNjiAVHC3RWW_1-TC4v3gCrlkryKdkcWzO6=w224-h398-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipO8TgFiSBuoZbbWZd6c2cEqElhXwYtQXJCjqnWo=w203-h114-k-no"
+    ],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "A staple Seattle chain coffee shop and roaster. Occasionally hosts tastings at their Capitol Hill location."
+  },
+  {
+    "name": "Zoka Coffee Roaster & Tea Company",
+    "address": "2200 N 56th St, Seattle, WA 98103",
+    "rating": 3,
+    "images": [],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "A small Seattle chain with 4 locations. I personally consider it the standard for Seattle coffee."
+  },
+  {
+    "name": "Lighthouse Roasters",
+    "address": "400 N 43rd St, Seattle, WA 98103",
+    "rating": 2,
+    "images": [],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "Known more as a roaster than a cafe, but with a small neighborhood location. Great coffee, a few pastries, good for a quick stop."
+  },
+  {
+    "name": "Elm Coffee Roasters",
+    "address": "",
+    "rating": 2,
+    "images": [],
+    "tags": [
+      "roaster"
+    ],
+    "notes": "A coffee roaster will a minimal storefront. Most of the location is dedicated to roasting equipment, which is plainly visible from the tiny cafe area. Neat."
+  },
+  {
+    "name": "Mercury's Coffee Co.",
+    "address": "13102 NE 20th St, Bellevue, WA 98005",
+    "rating": 3,
+    "images": [],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "One of the largest Seattle chains with several locations, albeit all on the east side. Their Bellevue location has an unrivaled selection of pastries, all made in-house."
+  },
+  {
+    "name": "5 Stones Coffee Co",
+    "address": "",
+    "rating": 2,
+    "images": [],
+    "tags": [
+      "pastries"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Third Culture Coffee",
+    "address": "80 102nd Ave NE, Bellevue, WA 98004",
+    "rating": 3,
+    "images": [
+      "https://lh3.ggpht.com/p/AF1QipN_TryJBT_kCRvB3kneNbGmXRtlGJu-y2BNYRHY=s512"
+    ],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "A bombshell of a cafe. Specializes in coffee drinks from around the world, including Vietnamese Coffee, Lassi, French Drinking Chocolate, and more."
+  },
+  {
+    "name": "Caffe Vita",
+    "address": "",
+    "rating": 0,
+    "images": [],
+    "tags": [
+      "tbd"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Caffe Umbria",
+    "address": "",
+    "rating": 0,
+    "images": [],
+    "tags": [
+      "tbd"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Seattle Sunshine Coffee",
+    "address": "",
+    "rating": 0,
+    "images": [],
+    "tags": [
+      "tbd"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Cafe Solstice",
+    "address": "",
+    "rating": 0,
+    "images": [
+      "tbd"
+    ],
+    "tags": [],
+    "notes": ""
+  },
+  {
+    "name": "Distant Worlds Coffeehouse",
+    "address": "6401 Roosevelt Way NE, Seattle, WA 98115",
+    "rating": 2,
+    "images": [],
+    "tags": [
+      "pastries"
+    ],
+    "notes": "A sci-fi themed cafe, uniquely, with a large selection of board games."
+  },
+  {
+    "name": "Fremont Coffee Company",
+    "address": "",
+    "rating": 0,
+    "images": [],
+    "tags": [
+      "tbd"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Mr. West Cafe Bar",
+    "address": "720 Olive Wy, Seattle, WA 98101",
+    "rating": 3,
+    "images": [
+      "https://lh5.googleusercontent.com/p/AF1QipMQGmxHLdDtbj_PBuDq2xp1gVd-2bc0IF2Nq7NZ=s483-k-no",
+      "https://lh3.googleusercontent.com/gps-proxy/ALd4DhHfNU2-Nq5wLw6H81cWYAQYzGAnTGMlnlfoxvgdkUSFwtJT5GTsxXl28YYFWcl0b_z8Zteua6wWrXrDRihO_LCsMGR9wFzleZBQgZPePd7-cAaZ2v72zySqeGWLWq4Kwvv8Aan83v__-ZV2zS3pyF6tBqZJ7aDtiqqyJVNA6xps8DiKFmBAjuZAGw=s551-k-no",
+      "https://lh5.googleusercontent.com/p/AF1QipM0hzACmOwOl7tcDao4t_53TMIyKNIgrGnPQkKg=w203-h152-k-no"
+    ],
+    "tags": [
+      "roaster",
+      "pastries",
+      "food",
+      "drinks"
+    ],
+    "notes": "Ultramodern cafe with a full bar and a full kitchen. Go if you want to feel fancy."
+  },
+  {
+    "name": "Cafe Allegro",
+    "address": "Alleyway, 4214 University Wy NE, Seattle, WA 98105",
+    "rating": 2,
+    "images": [],
+    "tags": [
+      "roaster",
+      "pastries",
+      "historic"
+    ],
+    "notes": "One of the oldest cafes in Seattle, opened in 1975. Quaint, classic, cozy, college-core. A must for UW students."
+  },
+  {
+    "name": "SEAFAB CAFE",
+    "address": "",
+    "rating": 1,
+    "images": [],
+    "tags": [
+      "pastries"
+    ],
+    "notes": "Got a parking ticket here once. Not a fan."
+  },
+  {
+    "name": "Revolutions Coffee",
+    "address": "",
+    "rating": 0,
+    "images": [],
+    "tags": [
+      "tbd"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Herkimer Coffee",
+    "address": "5611 University Wy NE #100c, Seattle, WA 98105",
+    "rating": 2,
+    "images": [],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Monorail Espresso",
+    "address": "",
+    "rating": 0,
+    "images": [],
+    "tags": [
+      "tbd"
+    ],
+    "notes": ""
+  },
+  {
+    "name": "Anchorhead Coffee",
+    "address": "CenturyLink Plaza, 1600 7th Ave Ste 105, Seattle, WA 98101",
+    "rating": 2,
+    "images": [],
+    "tags": [
+      "roaster",
+      "pastries"
+    ],
+    "notes": "Cafe with a sleek design aesthetic. It's alright."
+  }
+]
