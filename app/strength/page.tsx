@@ -38,7 +38,7 @@ function Main() {
     <main className="m-2 p-2 bg-slate-50 rounded-md flex flex-col gap-2 sm:w-max">
       <h1 className="font-bold text-lg">One-Rep Max Calculator</h1>
       <p>Calculates a n-rep max.</p>
-      <p>Also grades your lift according to <a className="underline" target="_blank" href="https://jeffnippard.com/blogs/news/how-strong-should-you-be-noob-to-freak-1">Jeff Nippard's standards.</a></p>
+      <p>Also grades your lift according to <a className="underline" target="_blank" href="https://jeffnippard.com/blogs/news/how-strong-should-you-be-noob-to-freak-1">Jeff Nippard&apos;s standards.</a></p>
       <Input
         weight={weight}
         setWeight={setWeight}
