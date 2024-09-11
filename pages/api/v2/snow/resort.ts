@@ -1,6 +1,7 @@
 import SnowDatabase from "@/database/v2/snow/SnowDatabase";
 import { MountainResort } from "@/database/v2/snow/types";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
 
 // mock resort
@@ -69,7 +70,43 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
 // creates a new resort
 async function postHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`POST request to /api/v2/snow/resort with body: ${req.body}`)
+  
+  const allowed = await isAdmin(req)
+  if (!allowed) {
+    return res.status(403).json({ message: `Forbidden` })
+  }
+
   const resort: MountainResort = req.body
   const newResort = await SnowDatabase.createResort(resort)
   return res.status(201).json(newResort)
+}
+
+// returns whether a session is allowed to access the API
+async function isAdmin(req: NextApiRequest) {
+  // if this is the development environment, allow
+  if (process.env.ENVIRONMENT === "development") {
+    console.log("!!! Development environment, allowing all requests !!!")
+    return true
+  }
+
+  // otherwise, check if the user is me
+  const session = await getSession()
+  if (!session) {
+    return false
+  }
+
+  const user = session.user
+  if (!user) {
+    return false
+  }
+
+  const email = user.email
+  if (!email) {
+    return false
+  }
+
+  // list of allowed emails
+  return [
+    "wenjalan@gmail.com"
+  ].includes(email)
 }
