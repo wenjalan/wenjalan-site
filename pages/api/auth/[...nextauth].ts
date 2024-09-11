@@ -17,20 +17,15 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
-      console.log(`signIn :: user=${user} account=${account} profile=${profile}`)
+    async signIn({ user, account, profile, email, credentials }) {
       return true
     },
-
-    async session({ session, token }) {
-      console.log(`session :: session=${session} token=${token}`)
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
+    async session({ session }) {
       return session
     },
-
-    async redirect({ url, baseUrl }) {
-      console.log(`redirect :: url=${url} baseUrl=${baseUrl}`)
-      return ""
-    }
   }
 }
 
