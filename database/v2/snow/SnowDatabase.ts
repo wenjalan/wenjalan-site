@@ -15,6 +15,13 @@ const connectDB = async () => {
 
 (async () => { await connectDB() })()
 
+const getResorts = async (): Promise<MountainResort[]> => {
+  const resorts = await ResortModel
+    .find()
+    .exec()
+  return resorts.map(resort => resort.toObject())
+}
+
 const getResortById = async (id: string): Promise<MountainResort | undefined> => {
   const resort = await ResortModel
     .findOne({ id })
@@ -26,6 +33,20 @@ const createResort = async (resort: MountainResort): Promise<MountainResort> => 
   const newResort = new ResortModel(resort)
   await newResort.save()
   return newResort.toObject()
+}
+
+const updateResort = async (id: string, resort: MountainResort): Promise<MountainResort | undefined> => {
+  const updatedResort = await ResortModel
+    .findOneAndUpdate({ id }, resort, { new: true })
+    .exec()
+  return updatedResort?.toObject()
+}
+
+const deleteResort = async (id: string): Promise<MountainResort | undefined> => {
+  const deletedResort = await ResortModel
+    .findOneAndDelete({ id })
+    .exec()
+  return deletedResort?.toObject()
 }
 
 export default { getResortById, createResort }

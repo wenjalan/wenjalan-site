@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 import NavBar from './components/NavBar'
+import { SessionProvider } from 'next-auth/react'
 
 const ERROR_MD_SRC = './error.md'
 
@@ -14,8 +15,10 @@ interface Section {
 export default function Home() {
   return (
     <div className='flex flex-col'>
-      <NavBar active="wenjalan"/>
-      <Main />
+      <SessionProvider>
+        <NavBar active="wenjalan" />
+        <Main />
+      </SessionProvider>
     </div>
   )
 }
@@ -31,7 +34,7 @@ function Main() {
       })
       .then((metadata) => {
         setSections(metadata.sections)
-        setSelected(metadata.sections[0].id )
+        setSelected(metadata.sections[0].id)
       })
   }, [])
 
