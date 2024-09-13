@@ -1,5 +1,5 @@
 import SnowDatabase from "@/database/v2/snow/SnowDatabase";
-import { MountainResort } from "@/database/v2/snow/types";
+import { MountainResort } from "@/common/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
@@ -42,35 +42,43 @@ const resort: MountainResort = {
 // retrieves a resort given its id
 // example: /api/v2/snow/resort?id=crystal
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "GET") {
-    return getHandler(req, res)
-  } else if (req.method === "POST") {
-    return postHandler(req, res)
-  } else {
-    return res.status(405).json({ message: "Method not allowed" })
+  switch (req.method) {
+    case "GET":
+      return getHandler(req, res)
+    case "POST":
+      return postHandler(req, res)
+    case "PUT":
+      return putHandler(req, res)
+    case "DELETE":
+      return deleteHandler(req, res)
+    default:
+      return res.status(405).json({ message: `Method ${req.method} Not Allowed` })
   }
 }
 
 async function getHandler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query
-
-  console.log(`GET request to /api/v2/snow/resort with id: ${id}`)
-
-  const resort = await SnowDatabase.getResortById(id as string)
-  // if the resort is not found, return 404
-  if (!resort) {
-    return res.status(404).json({ message: `Resort with id "${id}" not found` })
+  if (id) {
+    console.log(`GET request to /api/v2/snow/resort with id: ${id}`)
+    const resort = await SnowDatabase.getResortById(id as string)
+    if (!resort) {
+      return res.status(404).json({ message: `Resort with id "${id}" not found` })
+    }
+    return res.status(200).json(resort)
+  } else {
+    console.log(`GET request to /api/v2/snow/resort`)
+    const resorts = await SnowDatabase.getResorts()
+    return res.status(200).json(resorts)
   }
+}
 
-  // if the resort is found, return it
-  return res.status(200).json(resort)
+async function getResortById(id: string) {
 }
 
 // POST /api/v2/snow/resort
 // creates a new resort
 async function postHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`POST request to /api/v2/snow/resort with body: ${req.body}`)
-  
   const allowed = await isAdmin(req)
   if (!allowed) {
     return res.status(403).json({ message: `Forbidden` })
@@ -79,6 +87,34 @@ async function postHandler(req: NextApiRequest, res: NextApiResponse) {
   const resort: MountainResort = req.body
   const newResort = await SnowDatabase.createResort(resort)
   return res.status(201).json(newResort)
+}
+
+// PUT /api/v2/snow/resort
+// updates an existing resort
+async function putHandler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(`PUT request to /api/v2/snow/resort with body: ${req.body}`)
+  const allowed = await isAdmin(req)
+  if (!allowed) {
+    return res.status(403).json({ message: `Forbidden` })
+  }
+
+  const resort: MountainResort = req.body
+  const updatedResort = await SnowDatabase.updateResort(resort.id, resort)
+  return res.status(200).json(updatedResort)
+}
+
+// DELETE /api/v2/snow/resort
+// deletes an existing resort
+async function deleteHandler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(`DELETE request to /api/v2/snow/resort with body: ${req.body}`)
+  const allowed = await isAdmin(req)
+  if (!allowed) {
+    return res.status(403).json({ message: `Forbidden` })
+  }
+
+  const { id } = req.body
+  await SnowDatabase.deleteResort(id)
+  return res.status(204).end()
 }
 
 // returns whether a session is allowed to access the API

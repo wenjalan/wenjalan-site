@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb"
 import mongoose from "mongoose"
 import ResortModel from "./models/ResortModel"
-import { MountainResort } from "./types"
+import { MountainResort } from "../../../common/types"
 
 const connectDB = async () => {
   if (!process.env.MONGODB_URI) {
@@ -49,4 +49,4 @@ const deleteResort = async (id: string): Promise<MountainResort | undefined> => 
   return deletedResort?.toObject()
 }
 
-export default { getResortById, createResort }
+export default { getResortById, createResort, updateResort, deleteResort, getResorts }
