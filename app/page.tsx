@@ -15,10 +15,8 @@ interface Section {
 export default function Home() {
   return (
     <div className='flex flex-col'>
-      <SessionProvider>
-        <NavBar active="wenjalan" />
-        <Main />
-      </SessionProvider>
+      <NavBar active="wenjalan" />
+      <Main />
     </div>
   )
 }
