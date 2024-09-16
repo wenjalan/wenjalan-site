@@ -3,44 +3,6 @@ import { MountainResort } from "@/common/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
-
-// mock resort
-const resort: MountainResort = {
-  name: "Crystal Mountain",
-  id: "crystalmountainresort",
-  url: "https://crystalmountainresort.com",
-  pass: "ikon",
-  location: {
-    latitude: 46.9358,
-    longitude: -121.4741
-  },
-  weather: {
-    current: {
-      temperature: 0,
-      status: "snowing"
-    },
-    forecast: {
-      snow: [0, 0, 0, 0, 0, 0, 0]
-    }
-  },
-  webcams: [
-    {
-      type: "photo",
-      src: "https://crystalmountainresort.com/webcams/crystal-mountain-base-cam/"
-    },
-    {
-      type: "photo",
-      src: "https://crystalmountainresort.com/webcams/crystal-mountain-summit-cam/"
-    }
-  ],
-  sns: {
-    twitter: "https://twitter.com/crystalmt"
-  }
-}
-
-// GET /api/v2/snow/resort
-// retrieves a resort given its id
-// example: /api/v2/snow/resort?id=crystal
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "GET":
@@ -56,6 +18,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 }
 
+// GET /api/v2/snow/resort
+// retrieves a resort given its id
+// example: /api/v2/snow/resort?id=crystal
 async function getHandler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query
   if (id) {
