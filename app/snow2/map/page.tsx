@@ -36,7 +36,6 @@ export default function Home() {
         color="red"
         // @ts-ignore
         onClick={onMarkerClick}
-        popup={new Popup({ offset: 25 }).setHTML('<h1>Crystal Mountain Resort</h1>')}
       />
     </Map>
   );
