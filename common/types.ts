@@ -3,7 +3,7 @@ export type MountainResort = {
   id: string
   url: string
   pass?: Pass
-  location?: ResortLocation
+  location: ResortLocation
   weather?: Weather
   webcams?: Webcam[]
   sns?: SNS
