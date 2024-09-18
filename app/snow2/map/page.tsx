@@ -146,10 +146,6 @@ type EditResortPanelProps = {
 }
 
 function EditResortPanel({ visible, setVisible, resort }: EditResortPanelProps) {
-  if (!visible) {
-    return null;
-  }
-
   const [resortDraft, setResortDraft] = React.useState<MountainResort>(resort);
   const [status, setStatus] = React.useState<string | undefined>(undefined);
 
@@ -222,6 +218,10 @@ function EditResortPanel({ visible, setVisible, resort }: EditResortPanelProps) 
       // @ts-ignore
       setStatus(err.message)
     }
+  }
+
+  if (!visible) {
+    return null;
   }
 
   // similar to ResortPanel but each text field is editable
