@@ -14,4 +14,17 @@ async function getResort(id: string): Promise<MountainResort> {
   return data
 }
 
-export default { getResorts, getResort }
+async function updateResort(id: string, resort: MountainResort): Promise<void> {
+  const res = await fetch(API_ROOT + `resort?id=${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(resort)
+  })
+  if (!res.ok) {
+    throw new Error(`${res.status}: ${res.statusText}`)
+  }
+}
+
+export default { getResorts, getResort, updateResort }
