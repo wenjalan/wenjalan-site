@@ -7,9 +7,9 @@ import { MountainResort, Pass } from '@/common/types';
 import { useEffect } from 'react';
 import SnowClient from '../SnowClient';
 import { useSession } from 'next-auth/react';
-import ResortPanel from './components/ResortPanel';
-import EditResortPanel from './components/EditResortPanel';
-import NewResortModal from './components/NewResortModal';
+import ResortPanel from './ResortPanel';
+import EditResortPanel from './EditResortPanel';
+import NewResortModal from './NewResortModal';
 
 if (!process.env.NEXT_PUBLIC_MAPBOX_TOKEN) {
   throw new Error('Please set the NEXT_PUBLIC_MAPBOX_TOKEN environment variable');

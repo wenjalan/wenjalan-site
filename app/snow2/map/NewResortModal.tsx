@@ -1,5 +1,5 @@
 import { MountainResort, Pass } from "@/common/types";
-import SnowClient from "../../SnowClient";
+import SnowClient from "../SnowClient";
 import React from "react";
 
 export type NewResortModalProps = {

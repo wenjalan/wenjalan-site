@@ -1,6 +1,6 @@
 import { MountainResort } from "@/common/types";
 import React from "react";
-import SnowClient from "../../SnowClient";
+import SnowClient from "../SnowClient";
 
 export type EditResortPanelProps = {
   visible: boolean
