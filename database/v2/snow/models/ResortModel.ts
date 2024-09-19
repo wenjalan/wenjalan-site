@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const ResortSchema = new mongoose.Schema({
-  name: {
+  id: {
     type: String,
     required: true
   },
-  id: {
+  name: {
     type: String,
     required: true
   },
@@ -31,7 +31,6 @@ const ResortSchema = new mongoose.Schema({
     current: {
       temperature: {
         type: Number,
-        required: true
       },
       status: {
         type: String,
@@ -41,7 +40,6 @@ const ResortSchema = new mongoose.Schema({
     forecast: {
       snow: {
         type: [Number],
-        required: true
       }
     }
   },
@@ -53,7 +51,6 @@ const ResortSchema = new mongoose.Schema({
       },
       src: {
         type: String,
-        required: true
       }
     }
   ],

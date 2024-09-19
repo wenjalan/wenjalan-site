@@ -3,7 +3,7 @@ import * as React from 'react';
 import Map, { Marker, MarkerEvent } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { MountainResort } from '@/common/types';
+import { MountainResort, Pass } from '@/common/types';
 import { useEffect } from 'react';
 import SnowClient from '../SnowClient';
 import { type } from 'os';
@@ -24,6 +24,7 @@ export default function Home() {
   const [error, setError] = React.useState<string | null>();
   const [resortPanelVisible, setResortPanelVisible] = React.useState(false);
   const [editResortPanelVisible, setEditResortPanelVisible] = React.useState(false);
+  const [newResortModalVisible, setNewResortModalVisible] = React.useState(false);
 
   useEffect(() => {
     SnowClient.getResorts()
@@ -50,19 +51,54 @@ export default function Home() {
     setResortPanelVisible(false);
   }
 
+  const onDelete = async (id: string) => {
+    // ask for the resort id in a window alert
+    const idToDelete = prompt(`Confirm you want to delete ${id} by typing its id`);
+    if (idToDelete === id) {
+      try {
+        await SnowClient.deleteResort(id)
+        window.alert(`Deleted ${id}`)
+      } catch (e: any) {
+        window.alert(e.message)
+      }
+    } else {
+      window.alert(`ID mismatch, try again`)
+    }
+  }
+
+  const onNew = () => {
+    setEditResortPanelVisible(false)
+    setResortPanelVisible(false)
+    setNewResortModalVisible(true);
+  }
+
   return (
     <>
-      {status === "authenticated" && session ?
+      {canEdit && session != null ?
         <div className="absolute top-0 right-0 z-10 p-2 text-white">{session.user?.email}</div>
         : undefined
       }
       {error ? <ErrorModal error={error} /> : undefined}
+      {/* create new resort floating action button bottom right */}
+      {canEdit ?
+        <button className='absolute bottom-0 right-0 z-10 m-4 p-4 bg-blue-500 hover:bg-blue-700 text-white rounded' onClick={onNew}>New</button>
+        : undefined
+      }
+      {
+        newResortModalVisible ?
+          <NewResortModal
+            visible={newResortModalVisible}
+            setVisible={setNewResortModalVisible}
+          />
+          : undefined
+      }
       {selectedResort ?
         <ResortPanel
           visible={resortPanelVisible}
           setVisible={setResortPanelVisible}
           canEdit={canEdit}
           onEdit={onEdit}
+          onDelete={() => onDelete(selectedResort.id)}
           resort={selectedResort}
         />
         : undefined
@@ -104,10 +140,11 @@ type ResortPanelProps = {
   setVisible: (visible: boolean) => void
   canEdit: boolean
   onEdit: () => void
+  onDelete: () => void
   resort: MountainResort
 }
 
-function ResortPanel({ visible, setVisible, canEdit, onEdit, resort }: ResortPanelProps) {
+function ResortPanel({ visible, setVisible, canEdit, onEdit, onDelete, resort }: ResortPanelProps) {
   if (!visible) {
     return null;
   }
@@ -131,13 +168,124 @@ function ResortPanel({ visible, setVisible, canEdit, onEdit, resort }: ResortPan
         <p className='text-lg'>sns={resort.sns ? 'defined' : 'undefined'}</p>
         {/* edit and close buttons */}
         <div className='flex'>
-          { canEdit ? <button onClick={onEdit} className='text-white bg-blue-500 hover:bg-blue-700 rounded-md px-2 py-1'>Edit</button> : undefined }
+          {canEdit ? <button onClick={onEdit} className='text-white bg-blue-500 hover:bg-blue-700 rounded-md px-2 py-1'>Edit</button> : undefined}
+          {/* delete button */}
+          {canEdit ? <button onClick={onDelete} className='text-white bg-red-500 hover:bg-red-700 rounded-md px-2 py-1'>Delete</button> : undefined}
           <button onClick={() => setVisible(false)} className='text-white bg-gray-500 hover:bg-gray-700 rounded-md px-2 py-1'>Close</button>
         </div>
       </div>
     </div>
   );
 }
+
+type NewResortModalProps = {
+  visible: boolean
+  setVisible: (visible: boolean) => void
+}
+
+function NewResortModal({ visible, setVisible }: NewResortModalProps) {
+  const [resortDraft, setResortDraft] = React.useState<MountainResort>({
+    id: '',
+    name: '',
+    url: '',
+    pass: undefined,
+    location: {
+      latitude: 0,
+      longitude: 0
+    }
+  });
+
+  const onIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResortDraft({
+      ...resortDraft,
+      id: e.target.value
+    });
+  }
+
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResortDraft({
+      ...resortDraft,
+      name: e.target.value
+    });
+  }
+
+  const onUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResortDraft({
+      ...resortDraft,
+      url: e.target.value
+    });
+  }
+
+  const onPassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setResortDraft({
+      ...resortDraft,
+      pass: e.target.value as Pass
+    });
+  }
+
+  const onLatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResortDraft({
+      ...resortDraft,
+      location: {
+        ...resortDraft.location,
+        latitude: parseFloat(e.target.value)
+      }
+    });
+  }
+
+  const onLonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResortDraft({
+      ...resortDraft,
+      location: {
+        ...resortDraft.location,
+        longitude: parseFloat(e.target.value)
+      }
+    });
+  }
+
+  const onCreate = async () => {
+    try {
+      await SnowClient.createResort(resortDraft);
+    } catch (e: any) {
+      alert(e.message)
+    }
+  }
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div className='absolute top-0 left-0 z-10 w-full h-full flex justify-center items-center'>
+      <div className='bg-neutral-900 bg-opacity-90 rounded-md text-white p-4 w-1/3'>
+        <h1 className='text-2xl font-bold'>New Resort</h1>
+        <div className='flex flex-col gap-2'>
+          <form className='flex flex-col gap-2'>
+            <label className='text-lg'>ID</label>
+            <input type='text' value={resortDraft.id} onChange={onIdChange} className='rounded-md px-2 py-1 text-black' />
+            <label className='text-lg'>Name</label>
+            <input type='text' value={resortDraft.name} onChange={onNameChange} className='rounded-md px-2 py-1 text-black' />
+            <label className='text-lg'>URL</label>
+            <input type='text' value={resortDraft.url} onChange={onUrlChange} className='rounded-md px-2 py-1 text-black' />
+            <label className='text-lg'>Pass</label>
+            <select value={resortDraft.pass} onChange={onPassChange} className='rounded-md px-2 py-1 text-black'>
+              <option value={'ikon'}>Ikon</option>
+              <option value={'epic'}>Epic</option>
+              <option value={undefined}>None</option>
+            </select>
+            <label className='text-lg'>Latitude</label>
+            <input type='number' value={resortDraft.location.latitude} onChange={onLatChange} className='rounded-md px-2 py-1 text-black' />
+            <label className='text-lg'>Longitude</label>
+            <input type='number' value={resortDraft.location.longitude} onChange={onLonChange} className='rounded-md px-2 py-1 text-black' />
+            <button onClick={onCreate} className='text-white bg-blue-500 hover:bg-blue-700 rounded-md px-2 py-1'>Create</button>
+            <button onClick={() => setVisible(false)} className='text-white bg-gray-500 hover:bg-gray-700 rounded-md px-2 py-1'>Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 type EditResortPanelProps = {
   visible: boolean

@@ -37,9 +37,6 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-async function getResortById(id: string) {
-}
-
 // POST /api/v2/snow/resort
 // creates a new resort
 async function postHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -71,13 +68,13 @@ async function putHandler(req: NextApiRequest, res: NextApiResponse) {
 // DELETE /api/v2/snow/resort
 // deletes an existing resort
 async function deleteHandler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(`DELETE request to /api/v2/snow/resort with body: ${req.body}`)
+  console.log(`DELETE request to /api/v2/snow/resort with id: ${req.query.id}`)
   const allowed = await isAdmin(req)
   if (!allowed) {
     return res.status(403).json({ message: `Forbidden` })
   }
 
-  const { id } = req.body
+  const id = req.query.id as string
   await SnowDatabase.deleteResort(id)
   return res.status(204).end()
 }
