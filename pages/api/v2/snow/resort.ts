@@ -1,7 +1,9 @@
+'use server'
 import SnowDatabase from "@/database/v2/snow/SnowDatabase";
 import { MountainResort } from "@/common/types";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -41,7 +43,7 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
 // creates a new resort
 async function postHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`POST request to /api/v2/snow/resort with body: ${req.body}`)
-  const allowed = await isAdmin(req)
+  const allowed = await isAdmin(req, res)
   if (!allowed) {
     return res.status(403).json({ message: `Forbidden` })
   }
@@ -55,7 +57,7 @@ async function postHandler(req: NextApiRequest, res: NextApiResponse) {
 // updates an existing resort
 async function putHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`PUT request to /api/v2/snow/resort with body: ${req.body}`)
-  const allowed = await isAdmin(req)
+  const allowed = await isAdmin(req, res)
   if (!allowed) {
     return res.status(403).json({ message: `Forbidden` })
   }
@@ -69,7 +71,7 @@ async function putHandler(req: NextApiRequest, res: NextApiResponse) {
 // deletes an existing resort
 async function deleteHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`DELETE request to /api/v2/snow/resort with id: ${req.query.id}`)
-  const allowed = await isAdmin(req)
+  const allowed = await isAdmin(req, res)
   if (!allowed) {
     return res.status(403).json({ message: `Forbidden` })
   }
@@ -80,7 +82,7 @@ async function deleteHandler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 // returns whether a session is allowed to access the API
-async function isAdmin(req: NextApiRequest) {
+async function isAdmin(req: NextApiRequest, res: NextApiResponse) {
   // if this is the development environment, allow
   if (process.env.ENVIRONMENT === "development") {
     console.log("!!! Development environment, allowing all requests !!!")
@@ -88,23 +90,31 @@ async function isAdmin(req: NextApiRequest) {
   }
 
   // otherwise, check if the user is me
-  const session = await getSession()
+  const session = await getServerSession(req, res, authOptions)
   if (!session) {
+    console.log('Authentication failed, no session found')
     return false
   }
 
   const user = session.user
   if (!user) {
+    console.log('Authentication failed, no user found')
     return false
   }
 
   const email = user.email
   if (!email) {
+    console.log('Authentication failed, no email found')
     return false
   }
 
   // list of allowed emails
-  return [
+  if ([
     "wenjalan@gmail.com"
-  ].includes(email)
+  ].includes(email)) {
+    return true
+  } else {
+    console.log(`Authentication failed, email ${email} not allowed`)
+    return false
+  }
 }
