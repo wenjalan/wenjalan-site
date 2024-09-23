@@ -56,7 +56,7 @@ async function postHandler(req: NextApiRequest, res: NextApiResponse) {
 // PUT /api/v2/snow/resort
 // updates an existing resort
 async function putHandler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(`PUT request to /api/v2/snow/resort with body: ${req.body}`)
+  console.log(`PUT request to /api/v2/snow/resort with body: ${JSON.stringify(req.body)}`)
   const allowed = await isAdmin(req, res)
   if (!allowed) {
     return res.status(403).json({ message: `Forbidden` })

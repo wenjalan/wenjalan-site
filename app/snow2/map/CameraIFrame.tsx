@@ -1,5 +1,9 @@
+import React from "react"
+import { useEffect } from "react"
+
 export type CameraIFrameProps = {
   src: string
+  fetchRedirect: boolean
 }
 
 /* 
@@ -13,12 +17,29 @@ export type CameraIFrameProps = {
   whistler blackcomb:
   https://player.brownrice.com/embed/whistlerroundhouse
 */
-export default function CameraIFrame({ src }: CameraIFrameProps) {
+export default function CameraIFrame({ src, fetchRedirect = false }: CameraIFrameProps) {
+  const [cameraSrc, setCameraSrc] = React.useState<string>(src)
+  useEffect(() => {
+    // get the redirect url from /api/v2/traverseUrl
+    if (fetchRedirect) {
+      fetch(`/api/v2/snow/traverseUrl?url=${src}`)
+        .then(res => res.json())
+        .then(data => {
+          setCameraSrc(data.url)
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    } else {
+      setCameraSrc(src)
+    }
+  }, [src, fetchRedirect])
+
   return (
-    <div className="w-full overflow-hidden">
+    <div className="h-full w-full no-scrollbar">
       <iframe
-        className="h-full w-full absolute top-0 left-0"
-        src={src}
+        className="h-full w-full relative top-0 left-0 no-scrollbar"
+        src={cameraSrc}
       />
     </div>
   )

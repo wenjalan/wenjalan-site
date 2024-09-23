@@ -1,7 +1,6 @@
 import { MountainResort, Webcam } from "@/common/types";
 import React, { useState } from "react";
 import SnowClient from "../SnowClient";
-import { type } from "os";
 
 export type EditResortPanelProps = {
   onClose: (visible: boolean) => void
@@ -97,13 +96,6 @@ export default function EditResortPanel({ onClose: onClose, resort }: EditResort
     });
   }
 
-  const onAddWebcam = (webcam: Webcam) => {
-    setResortDraft({
-      ...resortDraft,
-      webcams: [...resortDraft.webcams, webcam]
-    });
-  }
-
   const onSave = async () => {
     try {
       // todo: maybe hoist this to the parent component
@@ -147,7 +139,11 @@ export default function EditResortPanel({ onClose: onClose, resort }: EditResort
             <div className='space-y-2'>
               {resortDraft.webcams.map((webcam, idx) => (
                 <div key={idx} className='flex space-x-2'>
-                  <input type='text' value={webcam.src} className='w-full bg-neutral-800 text-white p-2 rounded-md' />
+                  {
+                    webcam.srcIsRedirect ?
+                      <input type='text' defaultValue={webcam.src} className='w-full bg-blue-500 text-white p-2 rounded-md' />
+                    : <input type='text' defaultValue={webcam.src} className='w-full bg-neutral-800 text-white p-2 rounded-md' />
+                  }
                   <button type='button' className='text-white bg-red-500 hover:bg-red-700 rounded-md px-2 py-1' onClick={() => onDeleteWebcam(idx)}>Delete</button>
                 </div>
               ))}
@@ -180,6 +176,7 @@ function AddWebcamModal({ onSave, onClose }: AddWebcamModalProps) {
   const [draftWebcam, setDraftWebcam] = useState<Webcam>({
     type: 'video',
     src: '',
+    srcIsRedirect: false
   })
 
   const onSrcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -196,19 +193,32 @@ function AddWebcamModal({ onSave, onClose }: AddWebcamModalProps) {
     })
   }
 
+  const onSrcIsRedirectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDraftWebcam({
+      ...draftWebcam,
+      srcIsRedirect: e.target.checked
+    })
+  }
+
   return (
     // <div className='absolute top-0 left-0 z-10 w-1/3 h-full p-4 flex'>
     // centered modal
     <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-1/3 p-4'>
       <div className='bg-neutral-900 bg-opacity-90 rounded-md text-white p-4 w-full'>
         <form className='space-y-4'>
+          {/* type */}
           <label className='font-bold'>Type</label>
           <select value={draftWebcam.type} className='w-full bg-neutral-800 text-white p-2 rounded-md' onChange={onTypeChange}>
             <option value='video'>Video</option>
             <option value='image'>Image</option>
           </select>
+          {/* src */}
           <label className='font-bold'>Source</label>
           <input type='text' value={draftWebcam.src} className='w-full bg-neutral-800 text-white p-2 rounded-md' onChange={onSrcChange} />
+          {/* srcIsRedirect */}
+          <label className='font-bold'>Source is Redirect</label>
+          <input type='checkbox' checked={draftWebcam.srcIsRedirect} onChange={onSrcIsRedirectChange} />
+          {/* save and close buttons */}
           <div className='flex'>
             <button type='button' onClick={() => onSave(draftWebcam)} className='text-white bg-blue-500 hover:bg-blue-700 rounded-md px-2 py-1'>Save</button>
             <button type='button' onClick={onClose} className='text-white bg-gray-500 hover:bg-gray-700 rounded-md px-2 py-1 ml-2'>Close</button>

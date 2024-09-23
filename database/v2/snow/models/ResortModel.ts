@@ -51,7 +51,10 @@ const ResortSchema = new mongoose.Schema({
       },
       src: {
         type: String,
-      }
+      },
+      srcIsRedirect: {
+        type: Boolean,
+      },
     }
   ],
   sns: {

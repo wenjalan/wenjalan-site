@@ -103,12 +103,11 @@ export default function Home() {
         <button className='absolute bottom-0 right-0 z-10 m-4 p-4 bg-blue-500 hover:bg-blue-700 text-white rounded' onClick={onNew}>New</button>
         : undefined
       }
-      {
-        newResortModalVisible && newResortModalVisible ?
-          <NewResortModal
-            onClose={onCloseNewResortPanel}
-          />
-          : undefined
+      {newResortModalVisible && newResortModalVisible ?
+        <NewResortModal
+          onClose={onCloseNewResortPanel}
+        />
+        : undefined
       }
       {selectedResort && resortPanelVisible ?
         <ResortPanel

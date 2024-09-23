@@ -37,15 +37,8 @@ function MountainResortInfo({ resort }: MountainResortInfoProps) {
     <div>
       {/* bold */}
       <h1 className="font-bold">{resort.name}</h1>
-      <ul>
-        <li>id: {resort.id}</li>
-        <li>url: <a href={resort.url} target='_blank'>{resort.url}</a></li>
-        <li>pass: {resort.pass ? resort.pass : "unaffiliated"}</li>
-        <li>lat/lng: {resort.location ? `${resort.location.latitude}, ${resort.location.longitude}` : "undefined"}</li>
-        <li>weather: {resort.weather ? 'available' : 'unavailable'}</li>
-        <li>webcams: {resort.webcams ? 'available' : 'unavailable'}</li>
-        <li>sns: {resort.sns ? `available` : 'unavailable'}</li>
-      </ul>
+      {/* JSON print with indents */}
+      <pre>{JSON.stringify(resort, null, 2)}</pre>
     </div>
   )
 }

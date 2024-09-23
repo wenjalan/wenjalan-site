@@ -30,7 +30,8 @@ export type WeatherStatus = "sunny" | "cloudy" | "snowing" | "windy" | "blizzard
 
 export type Webcam = {
   type: "photo" | "video"
-  src: string
+  src: string,
+  srcIsRedirect: boolean
 }
 
 type SNS = {

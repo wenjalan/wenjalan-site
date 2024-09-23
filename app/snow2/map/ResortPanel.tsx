@@ -1,4 +1,5 @@
 import { MountainResort } from "@/common/types"
+import CameraIFrame from "./CameraIFrame"
 
 export type ResortPanelProps = {
   resort: MountainResort
@@ -9,12 +10,23 @@ export type ResortPanelProps = {
 }
 
 export default function ResortPanel({ onClose: onClose, canEdit, onEdit, onDelete, resort }: ResortPanelProps) {
+  console.log(`resort: ${resort.id}`)
   return (
     <div className='absolute top-0 left-0 z-10 h-full w-full flex md:w-1/3 p-4'>
       <div className='bg-neutral-900 bg-opacity-90 rounded-md text-white p-4 w-full'>
-        {/* name */}
-        <h1 className='text-2xl font-bold'><a href={resort.url} target='_blank'>{resort.name}</a></h1>        
+        <div className='flex flex-col gap-4'>
+          {/* name */}
+          <h1 className='text-2xl font-bold'><a href={resort.url} target='_blank'>{resort.name}</a></h1>
+          {
+            resort.webcams.map((webcam, index) => (
+              <div key={index} className='rounded-md lg:h-64 xl:h-96'>
+                <CameraIFrame key={index} src={webcam.src} fetchRedirect={webcam.srcIsRedirect} />
+              </div>
+            ))
+          }
+        </div>
         {/* temp debug info displays */}
+        <p className='text-lg'>Debug Info:</p>
         {/* id */}
         <p className='text-lg'>id={resort.id}</p>
         {/* pass */}
