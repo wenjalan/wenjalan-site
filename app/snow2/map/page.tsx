@@ -38,6 +38,21 @@ export default function Home() {
       })
   }, [])
 
+  const onCloseResortPanel = () => {
+    setResortPanelVisible(false);
+    setSelectedResort(undefined);
+  }
+
+  const onCloseEditResortPanel = () => {
+    setEditResortPanelVisible(false);
+    setSelectedResort(undefined);
+  }
+
+  const onCloseNewResortPanel = () => {
+    setNewResortModalVisible(false);
+    setSelectedResort(undefined);
+  }
+
   const onMarkerClick = (e: MarkerEvent, resort: MountainResort) => {
     setSelectedResort(resort);
     setResortPanelVisible(true);
@@ -74,6 +89,8 @@ export default function Home() {
     setNewResortModalVisible(true);
   }
 
+
+
   return (
     <>
       {canEdit && session != null ?
@@ -87,17 +104,15 @@ export default function Home() {
         : undefined
       }
       {
-        newResortModalVisible ?
+        newResortModalVisible && newResortModalVisible ?
           <NewResortModal
-            visible={newResortModalVisible}
-            setVisible={setNewResortModalVisible}
+            onClose={onCloseNewResortPanel}
           />
           : undefined
       }
-      {selectedResort ?
+      {selectedResort && resortPanelVisible ?
         <ResortPanel
-          visible={resortPanelVisible}
-          setVisible={setResortPanelVisible}
+          onClose={onCloseResortPanel}
           canEdit={canEdit}
           onEdit={onEdit}
           onDelete={() => onDelete(selectedResort.id)}
@@ -105,10 +120,9 @@ export default function Home() {
         />
         : undefined
       }
-      {selectedResort ?
+      {selectedResort && editResortPanelVisible ?
         <EditResortPanel
-          visible={editResortPanelVisible}
-          setVisible={setEditResortPanelVisible}
+          onClose={onCloseEditResortPanel}
           resort={selectedResort}
         />
         : undefined}

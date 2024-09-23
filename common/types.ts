@@ -5,7 +5,7 @@ export type MountainResort = {
   pass?: Pass
   location: ResortLocation
   weather?: Weather
-  webcams?: Webcam[]
+  webcams: Webcam[]
   sns?: SNS
 }
 
