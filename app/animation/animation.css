@@ -1,0 +1,62 @@
+/* * {
+  border: 1px solid green;
+} */
+
+.animation {
+  .bullet {
+    display: none;
+  }
+
+  &:hover {
+    cursor: default;
+
+    animation-name: persona;
+    animation-duration: 250ms;
+    animation-fill-mode: forwards;
+
+    .bullet {
+      display: inline-block;
+      animation: comeInFromLeft 250ms;
+      animation-fill-mode: forwards;
+    }
+
+    p {
+      animation-name: personaText;
+      animation-duration: 250ms;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@keyframes persona {
+  from {
+    color: black;
+    background-color: transparent;
+  }
+  to {
+    color: white;
+    background-color: black;
+  }
+}
+
+@keyframes personaText {
+  from {
+    translate: 0;
+  }
+  to {
+    translate: 5px;
+  }
+}
+
+@keyframes comeInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+    padding-right: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+    padding-right: 5px;
+  }
+}
